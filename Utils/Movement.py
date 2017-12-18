@@ -42,7 +42,15 @@ def right(d):
 def rotate(x):
     print("Rotating "+x+" angle")
 
+#Function that stops the system if needed
+
+def strop():
+    print("Stopping")
+
 """
+
+Dec. 18 10:06AM FOrtiz
+Added the stop function 
 
 Dec. 17 8:18PM FOrtiz
 Creation of the movement API for the code development.
