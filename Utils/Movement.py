@@ -44,10 +44,13 @@ def rotate(x):
 
 #Function that stops the system if needed
 
-def strop():
+def stop():
     print("Stopping")
 
 """
+
+Dec. 18 06:22PM TRodriguez
+Fixed typo on stop function.
 
 Dec. 18 10:06AM FOrtiz
 Added the stop function 
