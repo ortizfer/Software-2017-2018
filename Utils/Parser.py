@@ -4,7 +4,7 @@
     within it. Additionally,  the function can  recursively  parse the contents  of an
     element that is also of type List.
 
-    Supported types: list, str, int, float
+    Supported types: list, str, float, int
 """
 
 
