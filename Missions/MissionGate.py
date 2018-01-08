@@ -21,7 +21,6 @@ def allign(d,theta):
         Movement.forward(d)
 
 
-
 def rotate():
     while seeGate() == False:
         """"rotate 60 degrees"""
