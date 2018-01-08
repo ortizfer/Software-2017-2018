@@ -1,0 +1,27 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+
+
+@author: Charlie and The Painter
+"""
+#Code
+Movement.depth(3.048) #The depth should vary with the gate depth CAN THE DEPTH VALUE BE A FUNCTION OR AN IF
+
+if (frontCamFoundPath() == False): #WHAT SHOULD WE WRITE IN THIS PART
+    findPath()
+
+if (findPath == True):
+    Cameras.onDownCamera    #Command to turn on the down camera
+
+
+ #Definitions
+ #DUDA CON findPath Y frontCamFoundPath
+def findPath(frontCamFoundPath()): #Search the path
+    count = 0 #When count is equal to 6 the submarine will be in the initial position
+    while (frontCamFoundPath == False amd count < 6):
+        Movement.rotate(60)
+        frontCamFoundPath()
+
+def frontCamFoundPath ():
+    #VISION
