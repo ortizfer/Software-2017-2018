@@ -18,6 +18,13 @@ while (not foundPath):
 
 Cameras.onDownCamera    #Command to turn on the down camera
 
+foundPathBottom = False
+
+while (not foundPathBottom):
+    global foundPathBottom
+    Movement.foward() #By how many meters should the submarine move foward
+    findPathBottom(foundPathBottom)
+
 
  #Definitions
  #DUDA CON findPath Y frontCamFoundPath
@@ -30,8 +37,22 @@ def findPath(foundPath): #Search the path
         count = count + 1
     return foundPath
 
+def findPathBottom(foundPathBottom): #Find path with the bottom camera
+    global foundPathBottom
+    count1 = 0
+    while (not foundPathBottom and count1 < 6):
+        Movement.rotate(60)
+        bottomCamFoundPath(foundPathBottom)
+        count1 = count1 + 1
+    return foundPathBottom
+
+#Definitions from Vision
 def frontCamFoundPath(foundPath):
     global foundPath
     # VISION
     return foundPath
 
+def bottomCamFoundPath(foundPathBottom):
+    global foundPathBottom
+    #VISION
+    return foundPathBottom

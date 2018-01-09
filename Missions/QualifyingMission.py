@@ -9,19 +9,7 @@ from QualifyingGate import *
 from QualifyingTube import *
 from Movement import *
 
-def seeQGate():
-    return bool
 
-def findQGate(seeQGate):
-
-    count = 0
-
-    while seeQGate() == False and count < 6:
-        Movement.rotate(60)
-        seeQGate()
-        count += 1
-    seeCount = [seeQGate(),count]
-    return seeCount
 
 while seeQGate() == False:
     Movement.foward(0.5)
@@ -52,8 +40,24 @@ while GAR < 0 or GAL < 0:
         Movement.right(-GAL)'''
 
 foward()
+findQTube()
 
+
+def seeQGate():
+    return bool
+
+def findQGate(seeQGate):
+
+    count = 0
+
+    while seeQGate() == False and count < 6:
+        Movement.rotate(60)
+        seeQGate()
+        count += 1
+    seeCount = [seeQGate(),count]
+    return seeCount
 def findQTube():
     return bool
-findQTube()
+
+
 

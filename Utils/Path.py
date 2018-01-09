@@ -3,7 +3,7 @@
 """
 
 
-@author: Tatiana Rodriguez and Carlos Morel
+@author: Charlie and The Painter
 """
 #all units are in meters
 class Path:
