@@ -27,6 +27,8 @@ while (not foundPathBottom):
 
 #Debo ALINEARME una vez encuentre el path con la camara de abajo
 
+#Codear la parte de ir moviendote y aliniandote dentro del path y terminar la mision
+
  #Definitions
  #DUDA CON findPath Y frontCamFoundPath
 def findPath(foundPath): #Search the path
