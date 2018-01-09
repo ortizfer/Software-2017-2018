@@ -1,4 +1,5 @@
 import math
+from Utils import Movement
 angulo = math.acos(w)
 w = adj/hyp
 
@@ -7,6 +8,18 @@ def seeGate():
 
 def seeRedStrips():
     return boolean2
+
+def allign(d,theta):
+    a=math.cos(theta)*d
+    if theta < 0:
+        Movement.left(a)
+        Movement.forward(d)
+    elif theta > 0:
+        Movement.right(a)
+        Movement.forward(d)
+    else:
+        Movement.forward(d)
+
 
 def rotate():
     while seeGate() == False:

@@ -3,7 +3,7 @@
 """
 
 
-@author:
+@author: Carlos Morel and Tatiana Rodriguez
 """
 
 
