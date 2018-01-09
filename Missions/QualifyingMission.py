@@ -3,7 +3,7 @@
 """
 
 
-@author:
+@author: Tatiana Rodriguez and Carlos Morel
 """
 from QualifyingGate import *
 from QualifyingTube import *
