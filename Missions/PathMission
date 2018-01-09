@@ -25,6 +25,7 @@ while (not foundPathBottom):
     Movement.foward() #By how many meters should the submarine move foward
     findPathBottom(foundPathBottom)
 
+#Debo ALINEARME una vez encuentre el path con la camara de abajo
 
  #Definitions
  #DUDA CON findPath Y frontCamFoundPath
