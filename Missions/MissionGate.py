@@ -8,7 +8,6 @@ def seeGate(bool1):
     else:
         return True
 
-
 def allign(d,theta):
     a=math.cos(theta)*d
     if theta < 0:
