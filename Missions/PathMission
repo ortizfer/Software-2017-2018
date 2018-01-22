@@ -3,25 +3,59 @@
 """
 
 
-@author: Charlie and The Painter
+@author: Carlos Morel and Tatiana Rodriguez
 """
 #Code
-Movement.depth(3.048) #The depth should vary with the gate depth CAN THE DEPTH VALUE BE A FUNCTION OR AN IF
+Movement.depth(3.9624) #The depth should vary with the gate depth CAN THE DEPTH VALUE BE A FUNCTION OR AN IF
+foundPath = False
 
-if (frontCamFoundPath() == False): #WHAT SHOULD WE WRITE IN THIS PART
-    findPath()
+while (not foundPath):
+    global foundPath
+    Movement. () #Do not know what function use in this part
+    findPath(foundPath)
 
-if (findPath == True):
-    Cameras.onDownCamera    #Command to turn on the down camera
+#ALGO CON ALINIARME CON EL CENTRO DE LO QUE VEO DEL PATH
 
+Cameras.onDownCamera    #Command to turn on the down camera
+
+foundPathBottom = False
+
+while (not foundPathBottom):
+    global foundPathBottom
+    Movement.foward() #By how many meters should the submarine move foward
+    findPathBottom(foundPathBottom)
+
+#Debo ALINEARME una vez encuentre el path con la camara de abajo
+
+#Codear la parte de ir moviendote y aliniandote dentro del path y terminar la mision
 
  #Definitions
  #DUDA CON findPath Y frontCamFoundPath
-def findPath(frontCamFoundPath()): #Search the path
+def findPath(foundPath): #Search the path
+    global foundPath
     count = 0 #When count is equal to 6 the submarine will be in the initial position
-    while (frontCamFoundPath == False amd count < 6):
+    while (not foundPath amd count < 6):
         Movement.rotate(60)
-        frontCamFoundPath()
+        frontCamFoundPath(foundPath)
+        count = count + 1
+    return foundPath
 
-def frontCamFoundPath ():
+def findPathBottom(foundPathBottom): #Find path with the bottom camera
+    global foundPathBottom
+    count1 = 0
+    while (not foundPathBottom and count1 < 6):
+        Movement.rotate(60)
+        bottomCamFoundPath(foundPathBottom)
+        count1 = count1 + 1
+    return foundPathBottom
+
+#Definitions from Vision
+def frontCamFoundPath(foundPath):
+    global foundPath
+    # VISION
+    return foundPath
+
+def bottomCamFoundPath(foundPathBottom):
+    global foundPathBottom
     #VISION
+    return foundPathBottom

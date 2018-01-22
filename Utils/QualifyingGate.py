@@ -3,7 +3,7 @@
 """
 
 
-@authors: Charlie & The Painter
+@authors: Tatiana Rodriguez and Carlos Morel
 """
 
 class QGate:

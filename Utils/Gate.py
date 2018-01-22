@@ -3,7 +3,7 @@
 """
 
 
-@author: 
+@author: Fernando Guzman and Angel Burgos
 """
 
 

@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 #
+
+"""
+    The RosCom.py folder  contains the necessary functions to properly
+    maintain a set of communication nodes. These nodes consist of both
+    publishers and subscribers, which  alternate to essentially create
+    two way  channels of communication  between internal processes, as
+    well as processes outside the main computer.
+"""
 import rospy
 from std_msgs.msg import *
 
@@ -13,7 +21,7 @@ def createPublisherNodes():
 
 ##---------------------Publishers---------------------------##
 
-def setDepth(depth):
+def setDepth(depth):  # Sends integers in feet; moves the submarine to the specified depth
     pub = rospy.Publisher('depthMotors', Int32, queue_size=10)
     #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
@@ -21,7 +29,7 @@ def setDepth(depth):
         pub.publish(depth)
         ##rate.sleep()
 
-def setLedArray(ledPattern):
+def setLedArray(ledPattern):  #  Sends a string corresponding to an RGB value to be displayed
     pub = rospy.Publisher('ledArray', String, queue_size=10)
     #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
@@ -30,7 +38,7 @@ def setLedArray(ledPattern):
         ##rate.sleep()
 
 
-def setHM1(headingMotorCommand):
+def setHM1(headingMotorCommand):   #  Sends an integer corresponding to a predetermined command
     pub = rospy.Publisher('headingMotor1', Int32, queue_size=10)
     #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
@@ -39,7 +47,7 @@ def setHM1(headingMotorCommand):
         ##rate.sleep()
 
 
-def setHM2(headingMotorCommand):
+def setHM2(headingMotorCommand):    #  Sends an integer corresponding to a predetermined command
     pub = rospy.Publisher('headingMotor2', Int32, queue_size=10)
     #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
@@ -48,7 +56,7 @@ def setHM2(headingMotorCommand):
         ##rate.sleep()
 
 
-def setHM3(headingMotorCommand):
+def setHM3(headingMotorCommand):    #  Sends an integer corresponding to a predetermined command
     pub = rospy.Publisher('headingMotor3', Int32, queue_size=10)
     #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
@@ -57,7 +65,7 @@ def setHM3(headingMotorCommand):
         ##rate.sleep()
 
 
-def setHM4(headingMotorCommand):
+def setHM4(headingMotorCommand):    #  Sends an integer corresponding to a predetermined command
     pub = rospy.Publisher('headingMotor4', Int32, queue_size=10)
     #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
@@ -69,14 +77,14 @@ def setHM4(headingMotorCommand):
 ##---------------------Subscribers---------------------------##
 
 #
-def getDepth():
+def getDepth():  #  Returns the current depth of the submarine
     rospy.init_node('getDepth', anonymous=True, disable_signals=True)
     rospy.Subscriber('chatter', Float32, getDepthCallback)
     rospy.spin()
     return currentDepth
 
-#Preassure sensor subscriber callback function
-def getDepthCallback(data):
+#Pressure sensor subscriber callback function
+def getDepthCallback(data): #
     global currentDepth
     currentDepth = data.data    
     rospy.signal_shutdown("Data received")
@@ -96,3 +104,7 @@ def getIMUCallback(data):
     rospy.signal_shutdown("Data received")
    
 
+"""
+    Jan 8. 7:40 P.M. CFigueroa and CAnibal 
+    Documented publisher functions.
+"""
