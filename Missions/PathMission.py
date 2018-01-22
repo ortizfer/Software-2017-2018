@@ -1,5 +1,4 @@
-#!/usr/bin/env python2
-# -*- coding: utf-8 -*-
+from Utils import Movement
 """
 
 
@@ -7,25 +6,27 @@
 """
 #Code
 
+
 foundPath = False #Initial value that will make the submarine look for the path
+foundPathBottom = False
 
 Movement.depth(3.9624) #Submerge so we are able to see the path with the frontal camera
 
 while (not foundPath):
     global foundPath
     Movement. () #Do not know what function use in this part
-    findPath(foundPath)
+    searchForPath(foundPath)
 
 #ALGO CON ALINIARME CON EL CENTRO DE LO QUE VEO DEL PATH
 
 Cameras.onDownCamera    #Command to turn on the down camera
 
-foundPathBottom = False
+
 
 while (not foundPathBottom):
     global foundPathBottom
     Movement.foward() #By how many meters should the submarine move foward
-    findPathBottom(foundPathBottom)
+    searchForPathBottom(foundPathBottom)
 
 #Debo ALINEARME una vez encuentre el path con la camara de abajo
 
