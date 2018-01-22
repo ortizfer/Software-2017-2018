@@ -1,4 +1,3 @@
-from Dice import *
 
 detected = false # global variable
 
@@ -46,7 +45,3 @@ def start():
 
 # Need to consider the exact locations and dimensions of EVERY dice
 # so that the sub can successfully evade the unnecessary dice and push the correct dice.
-
-
-
-

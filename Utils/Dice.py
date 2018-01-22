@@ -18,30 +18,27 @@ class Dice:
 
 """Setters"""
     def setterX(self, recieved):
-        self.recievedThing = recieved
+        self.receivedThing = recieved
 
     def setterY(self, recieved):
-    self.recievedThing = recieved
+        self.receivedThing = recieved
 
     def setterDistance(self, recieved):
-    self.recievedThing = recieved
+        self.receivedThing = recieved
 
     def setterNumber(self, 5):
-    self.recievedThing = 5
-
-
-
+        self.receivedThing = 5
 
 """Getters"""
     def getterX(self):
-        return self.recievedThing
+        return self.receivedThing
 
     def getterY(self):
-        return self.recievedThing
+        return self.receivedThing
 
     def getterDistance(self):
-        return self.recievedThing
+        return self.receivedThing
 
     def getterNumber(self):
-        return self.recievedThing
+        return self.receivedThing
 
