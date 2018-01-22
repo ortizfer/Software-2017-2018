@@ -6,8 +6,10 @@
 @author: Carlos Morel and Tatiana Rodriguez
 """
 #Code
-Movement.depth(3.9624) #The depth should vary with the gate depth CAN THE DEPTH VALUE BE A FUNCTION OR AN IF
-foundPath = False
+
+foundPath = False #Initial value that will make the submarine look for the path
+
+Movement.depth(3.9624) #Submerge so we are able to see the path with the frontal camera
 
 while (not foundPath):
     global foundPath
@@ -31,29 +33,29 @@ while (not foundPathBottom):
 
  #Definitions
  #DUDA CON findPath Y frontCamFoundPath
-def findPath(foundPath): #Search the path
+def searchForPath(x): #Search for the path
     global foundPath
     count = 0 #When count is equal to 6 the submarine will be in the initial position
-    while (not foundPath amd count < 6):
+    while (not x and count < 6):
         Movement.rotate(60)
-        frontCamFoundPath(foundPath)
+        frontCamFoundPath(x)
         count = count + 1
-    return foundPath
+    foundPath = x
 
-def findPathBottom(foundPathBottom): #Find path with the bottom camera
+def searchForPathBottom(y): #Find path with the bottom camera
     global foundPathBottom
-    count1 = 0
-    while (not foundPathBottom and count1 < 6):
+    count = 0
+    while (not y and count < 6):
         Movement.rotate(60)
         bottomCamFoundPath(foundPathBottom)
         count1 = count1 + 1
     return foundPathBottom
 
 #Definitions from Vision
-def frontCamFoundPath(foundPath):
+def frontCamFoundPath(x):
     global foundPath
     # VISION
-    return foundPath
+    foundPath =
 
 def bottomCamFoundPath(foundPathBottom):
     global foundPathBottom
