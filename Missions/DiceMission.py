@@ -1,11 +1,12 @@
-
-detected = false # global variable
+from Utils import Movement
+detected = False # global variable
 
 targetangle1 = 0 # this is the number 5 die
 targetangle2 = 0 # this is the number 6 die
 
 targetdepth1 = 0 # this is the depth for the number 5 die
 targetdepth2 = 0 # this is the depth for the number 6 die
+targetdepthfinal = 0 #this is the depth for the final elevation
 
 placeholder = 1000 # change placeholder after given the correct distance
 
@@ -38,7 +39,10 @@ def start():
     Movement.forward(placeholder)
 
 # move backwards to continue rest of competition
-    Movemet.backward(placeholder)
+    Movement.backward(placeholder)
+
+    Movement.depth(targetdepthfinal)
+    Movement.forward(placeholder)
 
     print("Mission Accomplished")
 

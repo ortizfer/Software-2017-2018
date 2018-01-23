@@ -17,28 +17,28 @@ class Dice:
         numberofdice = 0
 
 """Setters"""
-    def setterX(self, recieved):
+def setterX(self, recieved):
         self.receivedThing = recieved
 
-    def setterY(self, recieved):
+def setterY(self, recieved):
         self.receivedThing = recieved
 
-    def setterDistance(self, recieved):
+def setterDistance(self, recieved):
         self.receivedThing = recieved
 
-    def setterNumber(self, 5):
-        self.receivedThing = 5
+def setterNumber(self, recieved):
+        self.receivedThing = recieved
 
 """Getters"""
-    def getterX(self):
+def getterX(self):
         return self.receivedThing
 
-    def getterY(self):
+def getterY(self):
         return self.receivedThing
 
-    def getterDistance(self):
+def getterDistance(self):
         return self.receivedThing
 
-    def getterNumber(self):
+def getterNumber(self):
         return self.receivedThing
 
