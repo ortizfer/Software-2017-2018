@@ -14,9 +14,7 @@ def seeQGate(seeGate): #Do I see the gate
 
 #HOW WE WILL PASS THE GATE AND WHERE WE WILL TELL THE SUBMARINE TO PASS
 
-
-while QGate.xCenterDist == 0:
-
+#GET THE CENTER OF THE GATE
 
 
 Movement.forward(4)     #After passing the gate move forward 4 meters

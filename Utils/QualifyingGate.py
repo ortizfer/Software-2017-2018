@@ -15,14 +15,15 @@ class QGate:
 
     def __init__(self):
 
-        xCenterDist = 1.5  # X coordinate from the center to a tube of the qualifying gate
+        centerX = 1.5  # X coordinate of the center of the gate
+        centerY = 1.5  # Y coordinate of the center of the gate
         allowableRight = 0.7    #Right approach to the right tube
         allowableLeft = 0.7     #Left approach to the left tube
         gateLeftCorner = 0.2   #Left corner of the gate
         gateRightCorner = 32    #Right corner of the gate
 
 #Setters
-    def setxCenterDist(self,received):
+    def setcenterX(self,received):
         self.xCenterDist = received     #A variable from VISION that give us the x coordinate
 
     def setallowableRight(self,received):
@@ -44,7 +45,7 @@ class QGate:
     def getdistTopGateFromSurf(self):
         return self.distTopGateFromSurf
 
-    def getxCenterDist(self):
+    def getcenterX(self):
         return self.xCenterDist
 
     def getallowableRight(self):
