@@ -7,33 +7,52 @@
 """
 from Utils import QualifyingGate, QualifyingTube, Movement
 
-seeGate = False
+seeGate = False     #Initial value of seeing the gate variable
 
 def seeQGate(seeGate): #Do I see the gate
     #VISION
 
-def findQGate(h):
+def findQGate(h):   #Search algorithm for the qualifying gate
    global seeGate
 
   if h == False:
-       Movement.rotate(-60)
+       Movement.rotate(-70)
        seeQGate(seeGate)
        h = seeGate
        if h == False:
-           Movement.rotate(120)
+           Movement.rotate(140)
            seeQGate(seeGate)
            h = seeGate
            if h == False:
-               Movement.rotate(-60)
+               Movement.rotate(-70)
     seeGate = h
 
 
 while seeQGate(seeGate) == False:
     findQGate()
-    Movement.foward(0.5)
+    Movement.forward(0.5)
 
 
 while QGate.xCenterDist == 0:
+
+
+
+Movement.forward(4)     #After passing the gate move forward 4 meters
+
+seeTube = False     #Initial value for seeing the tube variable
+
+def seeQTube(seeTube):  #Do I see the tube
+    #VISION
+
+def findQTube(g):    #Search algorithm of the qualifying tube
+    global seeTube
+
+while seeQTube(seeTube) == False:
+    findQTube()
+    Movement.forward(2)
+
+
+
 
 
 '''def getAllowableRightFromVision():
@@ -57,15 +76,7 @@ while GAR < 0 or GAL < 0:
     elif GAL < 0:
         Movement.right(-GAL)'''
 
-foward()
-findQTube()
 
-
-
-
-
-def findQTube():
-    return bool
 
 
 
