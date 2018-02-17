@@ -12,25 +12,7 @@ seeGate = False     #Initial value of seeing the gate variable
 def seeQGate(seeGate): #Do I see the gate
     #VISION
 
-def findQGate(h):   #Search algorithm for the qualifying gate
-   global seeGate
-
-  if h == False:
-       Movement.rotate(-70)
-       seeQGate(seeGate)
-       h = seeGate
-       if h == False:
-           Movement.rotate(140)
-           seeQGate(seeGate)
-           h = seeGate
-           if h == False:
-               Movement.rotate(-70)
-    seeGate = h
-
-
-while seeQGate(seeGate) == False:
-    findQGate()
-    Movement.forward(0.5)
+#HOW WE WILL PASS THE GATE AND WHERE WE WILL TELL THE SUBMARINE TO PASS
 
 
 while QGate.xCenterDist == 0:
@@ -52,9 +34,29 @@ while seeQTube(seeTube) == False:
     Movement.forward(2)
 
 
+#TO FIND THE QUALIFYNG GATE AFTER PASSING THE TUBE
+'''def findQGate(h):   #Search algorithm for the qualifying gate
+   global seeGate
+
+  if h == False:
+       Movement.rotate(-70)
+       seeQGate(seeGate)
+       h = seeGate
+       if h == False:
+           Movement.rotate(140)
+           seeQGate(seeGate)
+           h = seeGate
+           if h == False:
+               Movement.rotate(-70)
+    seeGate = h
 
 
+while seeQGate(seeGate) == False:
+    findQGate()
+    Movement.forward(0.5)
+'''
 
+#DO NOT KNOW WHY WE WILL USE THIS
 '''def getAllowableRightFromVision():
     return ARFV #Allowable Right From Vision
 

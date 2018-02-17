@@ -18,7 +18,8 @@ class QGate:
         xCenterDist = 1.5  # X coordinate from the center to a tube of the qualifying gate
         allowableRight = 0.7    #Right approach to the right tube
         allowableLeft = 0.7     #Left approach to the left tube
-
+        gateLeftCorner = 0.2   #Left corner of the gate
+        gateRightCorner = 32    #Right corner of the gate
 
 #Setters
     def setxCenterDist(self,received):
@@ -29,6 +30,12 @@ class QGate:
 
     def setallowableLeft (self, received):
         self.allowableLeft = received
+
+    def setgateLeftCorner(self, received):
+        self.gateLeftCorner = received
+
+    def setgateRightCorner(self,received):
+        self.gateRightCorner = received
 
     #Getters
     def getgateTubeDiameter(self):
@@ -46,6 +53,11 @@ class QGate:
     def getallowableLeft(self):
         return self.allowableLeft
 
+    def getgateLeftCorner(self):
+        return self.gateLeftCorner
+
+    def getgateRightCorner(self):
+        return self.gateRightCorner
 
 
 
