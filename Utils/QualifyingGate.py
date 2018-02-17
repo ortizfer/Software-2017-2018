@@ -14,7 +14,6 @@ class QGate:
     allowance= 0.4  # This is the minimum allowance that the submarine can be to a tube
 
     def __init__(self):
-
         centerX = 1.5  # X coordinate of the center of the gate
         centerY = 1.5  # Y coordinate of the center of the gate
         allowableRight = 0.7    #Right approach to the right tube
@@ -24,7 +23,10 @@ class QGate:
 
 #Setters
     def setcenterX(self,received):
-        self.xCenterDist = received     #A variable from VISION that give us the x coordinate
+        self.centerX = received     #A variable from VISION that give us the x coordinate
+
+    def setcenterY(self,received):
+        self.centerY = received
 
     def setallowableRight(self,received):
         self.allowableRight = received
@@ -46,7 +48,10 @@ class QGate:
         return self.distTopGateFromSurf
 
     def getcenterX(self):
-        return self.xCenterDist
+        return self.centerX
+
+    def getcenterY(self):
+        return self.centerY
 
     def getallowableRight(self):
         return self.allowableRight
