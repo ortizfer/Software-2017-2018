@@ -5,24 +5,26 @@
 
 @author: Tatiana Rodriguez and Carlos Morel
 """
+#Imports
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
 from Utils import Movement
-gate= QGate.getcenterX()
 
+#Initialized Variables
 seeGate = False     #Initial value of seeing the gate variable
+x = 0
+y = 0
 
+#Functions
 def seeQGate(seeGate): #Do I see the gate
     #VISION
 
-#HOW WE WILL PASS THE GATE AND WHERE WE WILL TELL THE SUBMARINE TO PASS
-
-#GET THE CENTER OF THE GATE
 def findcenter():
-
+    global x, y
     x = QGate.getcenterX()
-    y =
-    #VISION
+    y = QGate.getcenterY()
+
+
 
 
 Movement.forward(4)     #After passing the gate move forward 4 meters
