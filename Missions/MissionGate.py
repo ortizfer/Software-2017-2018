@@ -1,5 +1,6 @@
 import math
-from Utils import Movement, Gate
+from Utils import Movement
+from Utils.Gate import Gate
 
 def seeGate(bool1):
     if bool1==False:
