@@ -12,11 +12,11 @@ class Gate:
     def __init__(self):
 
         #recievedThing = 1
-        ladoRojo = 0
-        ladoNegro = 0
-        x = 0
-        y = 0
-        Distancia = 0
+
+        distCenterRed = 0   #distance to the center between the red strips
+        distCenterBlack = 0 #distance to the center between the black strips
+        angleRed = 0
+        angleBlack = 0
 
 
     """def setterExample(self, recieved):
@@ -26,45 +26,33 @@ class Gate:
         return self.recievedThing
     """
 
-    def setterNegro(self, n):
-        self.ladoNegro = n
+    def setterCenterR(self, d):
+        self.distCenterRed = d
 
 
-    def setterRojo(self, r):
-        self.ladoRojo = r
+    def setterCenterB(self, d):
+        self.distCenterBlack = d
 
 
-    def setterX(self, X):
-        self.x = X
+    def setterAngleR(self, theta):
+        self.angleRed = theta
 
 
-    def setterY(self, Y):
-        self.y = Y
+    def setterAngleB(self, theta):
+        self.angleBlack = theta
 
 
-    def setterDistancia(self, distancia):
-        self.Distancia = distancia
+    def getterCenterR(self):
+        return self.distCenterRed
 
 
-
-    def getterNegro(self):
-        return self.ladoNegro
-
-
-    def getterRojo(self):
-        return self.ladoRojo
+    def getterCenterB(self):
+        return self.distCenterBlack
 
 
-    def getterX(self):
-        return self.x
+    def getterAngleR(self):
+        return self.angleRed
 
 
-    def getterY(self):
-        return self.y
-
-
-    def getterDistancia(self):
-        return self.Distancia
-
-
-
+    def getterAngleB(self):
+        return self.angleBlack

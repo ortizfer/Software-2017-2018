@@ -1,12 +1,13 @@
 import math
-from Utils import Movement
+from Utils import Movement, Gate
 
 def seeGate(bool1):
     if bool1==False:
         Movement.rotate(70)
-        return False
+        seeGate()
+"""        return False
     else:
-        return True
+        return True"""
 
 def allign(d,theta):
     a=math.cos(theta)*d
@@ -19,8 +20,9 @@ def allign(d,theta):
     else:
         Movement.forward(d)
 
-def mission():
-    boolean = seeGate()
+def main():
+ """   boolean = seeGate()
     while boolean == False:
-        boolean = seeGate()
+        boolean = seeGate()"""
+    seeGate()
     allign()
