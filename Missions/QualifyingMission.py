@@ -7,7 +7,7 @@
 """
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
-from Utils import QualifyingTube, Movement
+from Utils import Movement
 gate= QGate.getcenterX()
 
 seeGate = False     #Initial value of seeing the gate variable
