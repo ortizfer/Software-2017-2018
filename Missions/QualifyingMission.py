@@ -5,15 +5,33 @@
 
 @author: Tatiana Rodriguez and Carlos Morel
 """
-from QualifyingGate import *
-from QualifyingTube import *
-from Movement import *
+from Utils import QualifyingGate, QualifyingTube, Movement
+
+seeGate = False
+
+def seeQGate(seeGate): #Do I see the gate
+    #VISION
+
+def findQGate(h):
+   global seeGate
+
+  if h == False:
+       Movement.rotate(-60)
+       seeQGate(seeGate)
+       h = seeGate
+       if h == False:
+           Movement.rotate(120)
+           seeQGate(seeGate)
+           h = seeGate
+           if h == False:
+               Movement.rotate(-60)
+    seeGate = h
 
 
-
-while seeQGate() == False:
-    Movement.foward(0.5)
+while seeQGate(seeGate) == False:
     findQGate()
+    Movement.foward(0.5)
+
 
 while QGate.xCenterDist == 0:
 
@@ -43,19 +61,9 @@ foward()
 findQTube()
 
 
-def seeQGate():
-    return bool
 
-def findQGate(seeQGate):
 
-    count = 0
 
-    while seeQGate() == False and count < 6:
-        Movement.rotate(60)
-        seeQGate()
-        count += 1
-    seeCount = [seeQGate(),count]
-    return seeCount
 def findQTube():
     return bool
 
