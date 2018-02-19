@@ -20,6 +20,7 @@ class QGate:
         allowableLeft = 0.7     #Left approach to the left tube
         gateLeftCorner = 0.2   #Left corner of the gate
         gateRightCorner = 32    #Right corner of the gate
+        seeGate = False  #Do I see the gate
 
 #Setters
     def setcenterX(self,received):
@@ -27,6 +28,9 @@ class QGate:
 
     def setcenterY(self,received):
         self.centerY = received
+
+    def setseeGate(self,received):
+        self.seeGate = received
 
     def setallowableRight(self,received):
         self.allowableRight = received
@@ -52,6 +56,9 @@ class QGate:
 
     def getcenterY(self):
         return self.centerY
+
+    def getseeGate(self):
+        return self.seeGate
 
     def getallowableRight(self):
         return self.allowableRight

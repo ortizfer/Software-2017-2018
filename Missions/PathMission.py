@@ -1,4 +1,5 @@
 from Utils import Movement
+from Utils import Path
 """
 
 
@@ -7,33 +8,35 @@ from Utils import Movement
 #Code
 # Definitions
 #Definitions from Vision
-def frontCamFoundPath(x):
+def frontCamFoundPath():
     global foundPath
     # VISION
-    foundPath =
+    return #HERE WE WILL USE A VARIABLE THAT RETURN A TRUE OR FALSE
 
-def bottomCamFoundPath(y):
+def bottomCamFoundPath():
     global foundPathBottom
     #VISION
-    return foundPathBottom
+    return
 
 def searchForPath(x): #Search for the path
     global foundPath
-    count = 0 #When count is equal to 6 the submarine will be in the initial position
-    while not x and count < 6:
-        Movement.rotate(60)
-        frontCamFoundPath(x)
-        count += 1
-    foundPath = x
+    if not x:
+        foundPath = frontCamFoundPath()
+        if not foundPath:
+            Movement.rotate(60)
+            foundPath = frontCamFoundPath()
+            if not foundPath:
+                Movement.rotate(-120)
+
 
 def searchForPathBottom(y): #Find path with the bottom camera
     global foundPathBottom
     count = 0
-    while not y and count < 6:
+ '''   while not y and count < 6:
         Movement.rotate(60)
         bottomCamFoundPath(foundPathBottom)
         count += 1
-    return foundPathBottom
+    return foundPathBottom'''
 
 foundPath = False #Initial value that will make the submarine look for the path
 foundPathBottom = False
@@ -42,7 +45,8 @@ Movement.depth(3.9624) #Submerge so we are able to see the path with the frontal
 
 if not foundPath: #if I dont see the path with the frontal camera look right
     global foundPath
-    Movement.rotate() #Do not know what function use in this part
+    Movement.rotate(60) #Do not know what function use in this part
+    frontCamFoundPath(foundPath)
     searchForPath(foundPath)
 
 

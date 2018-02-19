@@ -11,14 +11,10 @@ from Utils.QualifyingTube import QTube
 from Utils import Movement
 
 #Initialized Variables
-seeGate = False     #Initial value of seeing the gate variable
 x = 0
 y = 0
 
 #Functions
-def seeQGate(seeGate): #Do I see the gate
-    #VISION
-
 def findcenter():
     global x, y
     x = QGate.getcenterX()
