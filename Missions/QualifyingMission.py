@@ -5,6 +5,13 @@
 
 @author: Tatiana Rodriguez and Carlos Morel
 """
+
+#binding box from other gate
+"""def check_binding_box(x,y):
+    if (xPixels-50) < x < (xPixels+50) and (yPixels-50) < y < (yPixels+50):
+        return True
+    return False
+"""
 #Imports
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
