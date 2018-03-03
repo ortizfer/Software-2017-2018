@@ -7,89 +7,69 @@
 """
 
 #binding box from other gate
-"""def check_binding_box(x,y):
-    if (xPixels-50) < x < (xPixels+50) and (yPixels-50) < y < (yPixels+50):
-        return True
-    return False
-"""
+
 #Imports
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
-from Utils import Movement
+from Utils import RosCom
 
-#Initialized Variables
-x = 0
-y = 0
+#Variables
+xGate = 0       # X coordinate from the center of the gate with respect to the center of the camera
+xPole = 0       # X coordinate from the center of the pole with respect to the center of the camera
+xPixels = 640   # Total x pixels of camera
+yPixels = 480   # Total y pixels of camera
+seeGate = False # Do I see gate
+seePoleFrontCam = False # Do I see pole with the front camera
+seePoleSideCam = False # Do I see pole with the side camera
+boxRadius = 50  # Bounding box for the gate
+topGateDist = QGate.distTopGateFromSurf  # Top distance from the surface to gate
+noNameHeight = 0.5  # Submarine height
+passingDepth = topGateDist + 2 * noNameHeight # Safe y coordinate to pass the gate
+
 
 #Functions
-def findcenter():
-    global x, y
-    x = QGate.getcenterX()
-    y = QGate.getcenterY()
+def findCenterGate():   # update center of gate with respect to center of the camera
+    global xGate
+    gateCoor = QGate.getcentroid()
+    xGate = gateCoor[0]
 
+def findCenterPole():   # update center of gate with respect to center of the camera
+    global xPole
+    poleCoor = QTube.getcentroid()
+    xPole = poleCoor[0]
 
+def seeGateVision():    # Asks vision if I see gate or not
+    global seeGate
+    seeGate = QGate.getseePole
 
+def seePoleFrontCamVision():    # Asks vision if I see pole or not
+    global seePoleFrontCam
+    if QGate.getcamera() == 1:
+        seePoleFrontCam = QGate.getseePole()
 
-Movement.forward(4)     #After passing the gate move forward 4 meters
+def seePoleSideCamVision():    # Asks vision if I see pole or not
+    global seePoleSideCam
+    if QGate.getcamera() == 2:
+        seePoleSideCam = QGate.getseePole()
 
-seeTube = False     #Initial value for seeing the tube variable
+#Mission Logic
+RosCom.setPoint()
+RosCom.setMission(0)    # Tells vision we are doing the qualifying maneuver
+seeGateVision()
 
-def seeQTube(seeTube):  #Do I see the tube
-    #VISION
+while seeGate:
+    RosCom.setDepth(True, passingDepth)  # Submerge using the safe distance
+    findCenterGate()
 
-def findQTube(g):    #Search algorithm of the qualifying tube
-    global seeTube
+    if abs(xGate - xPixels/2) > boxRadius:
+        if xGate - xPixels/2 > 0:
+            RosCom.moveLeft(True,0.3) # Move to the left to align with the center
+        else:
+            RosCom.moveRight(True,0.3) # Move to the right to align with the center
+    else:
+        RosCom.moveFoward(True,5)
 
-while seeQTube(seeTube) == False:
-    findQTube()
-    Movement.forward(2)
+while not seePoleFrontCam:
+    RosCom.moveFoward(1)
 
-
-#TO FIND THE QUALIFYNG GATE AFTER PASSING THE TUBE
-'''def findQGate(h):   #Search algorithm for the qualifying gate
-   global seeGate
-
-  if h == False:
-       Movement.rotate(-70)
-       seeQGate(seeGate)
-       h = seeGate
-       if h == False:
-           Movement.rotate(140)
-           seeQGate(seeGate)
-           h = seeGate
-           if h == False:
-               Movement.rotate(-70)
-    seeGate = h
-
-
-while seeQGate(seeGate) == False:
-    findQGate()
-    Movement.forward(0.5)
-'''
-
-#DO NOT KNOW WHY WE WILL USE THIS
-'''def getAllowableRightFromVision():
-    return ARFV #Allowable Right From Vision
-
-def getAllowableLeftFromVision():
-    return ALFV #Allowable Left From Vision
-
-QGate.setallowableRight(getAllowableRightFromVision())  #NPI
-QGate.setallowableLeft(getAllowableLeftFromVision())
-
-GAR = QGate.getallowableRight()
-GAL = QGate.getallowableLeft()
-DTGFS = QGate.distTopGateFromSurf
-AT = QGate.allowanceTop
-GD = Movement.depth(AT+DTGFS)
-
-while GAR < 0 or GAL < 0:
-    if GAR < 0:
-        Movement.left(-GAR)
-    elif GAL < 0:
-        Movement.right(-GAL)'''
-
-
-
-
-
+while seePoleFrontCam:

@@ -14,11 +14,37 @@ class QTube:
     allowableTubeApproach = 1
 
     def __init__(self):
-        tubeApproach = 5
-        xTubeDist = -3
+        centroid = (0, 0)
+        boundingBox = [0, 0, 0, 0]
+        value = 5
+        angle = 0
+        camera = 1
+        seePole = False
 
-    def settubeApproach(self,recieved):
-        self.tubeApproach = recieved
+# Setters
 
-    def gettubeApproach(self):
-        return self.tubeApproach
+    def setcentroid(self, received):
+        self.centroid = received  # A variable from VISION that give us the x coordinate
+
+    def setboundingBox(self, received):
+        self.boundingBox = received
+
+    def setCamera(self, received):
+        self.camera = received
+
+    def setseePole(self, received):
+        self.seePole = received
+
+# Getters
+
+    def getcentroid(self):
+        return self.centroid
+
+    def getboundingBox(self):
+        return self.boundingBox
+
+    def getcamera(self):
+        return self.camera
+
+    def getseePole(self):
+        return self.seePole
