@@ -9,7 +9,7 @@ camCenterY = 480/2
 gate = Gate()
 
 
-def set_center():
+def set_center():  # Ros statements need to be modified
     global gate
     if side == 0:
         gate.setter_centerx(RosCom.setvisual)
