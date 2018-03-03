@@ -10,72 +10,92 @@
 """
 import rospy
 from std_msgs.msg import *
-
-
-##Node creation for publishers
-def createPublisherNodes():
-    rospy.init_node('Depth_Motors', anonymous=True)
-    rospy.init_node('Heading_Motors', anonymous=True)
-    rospy.init_node('LED_Array', anonymous=True)
+from rumarino.msg import *
 
 
 ##---------------------Publishers---------------------------##
 
-def setDepth(depth):  # Sends integers in feet; moves the submarine to the specified depth
-    pub = rospy.Publisher('depthMotors', Int32, queue_size=10)
-    #rate = rospy.Rate(10) # 10hz
+def initCommunications():	
+    rospy.init_node('mission_logic', anonymous=True)
+
+    global depth_pub
+    global align_pub
+    global led_pub
+    global vision_pub
+    global move_pub
+    depth_pub = rospy.Publisher('vertical_controller', depth_controller_setup, queue_size=10)
+    align_pub = rospy.Publisher('horizontal_controller', align_controller_setpoint, queue_size=10) 
+    move_pub = rospy.Publisher('horizontal_controller', movement, queue_size=10)
+    vision_pub = rospy.Publisher('movement', Int32, queue_size=10)
+    led_pub = rospy.Publisher('led_array', Int32, queue_size=10)
+    
+
+def setDepth(enable, depth):  # Sends integers in feet; moves the submarine to the specified depth
     if not rospy.is_shutdown():
-        rospy.loginfo(depth)
-        pub.publish(depth)
-        ##rate.sleep()
+        command.enable = enable
+        command.feet = depth
+        rospy.loginfo(command)
+        depth_pub.publish(command)
+
+
+def headingMotors(enable, mode, angle):   #  Sends 
+    if not rospy.is_shutdown():
+	command.enable = enable
+        command.mode = mode
+        command.angle = angle
+        rospy.loginfo(command)
+        align_pub.publish(command)
+
+
+def moveFoward(motorIntensity):   #  Sends 
+    if not rospy.is_shutdown():
+        command.direction = 0
+        command.intensity = motorIntensity
+        rospy.loginfo(command)
+        move_pub.publish(command)
+
+
+def moveBackward(motorIntensity):   #  Sends 
+    if not rospy.is_shutdown():
+        command.direction = 1
+        command.intensity = motorIntensity
+        rospy.loginfo(command)
+        move_pub.publish(command)
+
+
+def moveLeft(motorIntensity):   #  Sends 
+    if not rospy.is_shutdown():
+        command.direction = 2
+        command.intensity = motorIntensity
+        rospy.loginfo(command)
+        move_pub.publish(command)
+
+
+def moveRight(motorIntensity):   #  Sends 
+    if not rospy.is_shutdown():
+        command.direction = 3
+        command.intensity = motorIntensity
+        rospy.loginfo(command)
+        move_pub.publish(command)
+
+
+def setVisionMission(mission):   #  Sends 
+    if not rospy.is_shutdown():
+        rospy.loginfo(mission)
+       	vision_pub.publish(mission)
+
 
 def setLedArray(ledPattern):  #  Sends a string corresponding to an RGB value to be displayed
-    pub = rospy.Publisher('ledArray', String, queue_size=10)
-    #rate = rospy.Rate(10) # 10hz
     if not rospy.is_shutdown():
         rospy.loginfo(ledPattern)
-        pub.publish(ledPattern)
-        ##rate.sleep()
+        led_pub.publish(ledPattern)
 
 
-def setHM1(headingMotorCommand):   #  Sends an integer corresponding to a predetermined command
-    pub = rospy.Publisher('headingMotor1', Int32, queue_size=10)
-    #rate = rospy.Rate(10) # 10hz
-    if not rospy.is_shutdown():
-        rospy.loginfo(hMData)
-        pub.publish(hMData)
-        ##rate.sleep()
-
-
-def setHM2(headingMotorCommand):    #  Sends an integer corresponding to a predetermined command
-    pub = rospy.Publisher('headingMotor2', Int32, queue_size=10)
-    #rate = rospy.Rate(10) # 10hz
-    if not rospy.is_shutdown():
-        rospy.loginfo(hMData)
-        pub.publish(hMData)
-        ##rate.sleep()
-
-
-def setHM3(headingMotorCommand):    #  Sends an integer corresponding to a predetermined command
-    pub = rospy.Publisher('headingMotor3', Int32, queue_size=10)
-    #rate = rospy.Rate(10) # 10hz
-    if not rospy.is_shutdown():
-        rospy.loginfo(hMData)
-        pub.publish(hMData)
-        ##rate.sleep()
-
-
-def setHM4(headingMotorCommand):    #  Sends an integer corresponding to a predetermined command
-    pub = rospy.Publisher('headingMotor4', Int32, queue_size=10)
-    #rate = rospy.Rate(10) # 10hz
-    if not rospy.is_shutdown():
-        rospy.loginfo(hMData)
-        pub.publish(hMData)
-        ##rate.sleep()
 
 
 ##---------------------Subscribers---------------------------##
 
+"""
 #
 def getDepth():  #  Returns the current depth of the submarine
     rospy.init_node('getDepth', anonymous=True, disable_signals=True)
@@ -102,9 +122,5 @@ def getIMUCallback(data):
     global imuData
     imuData = data.data    
     rospy.signal_shutdown("Data received")
+"""
    
-
-"""
-    Jan 8. 7:40 P.M. CFigueroa and CAnibal 
-    Documented publisher functions.
-"""
