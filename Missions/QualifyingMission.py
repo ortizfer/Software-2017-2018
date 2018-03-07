@@ -73,5 +73,5 @@ while not seePoleFrontCam:
     RosCom.moveFoward(1)
 
 while seePoleFrontCam:
-    RosCom.Left(1.5) # Move left to see the pole with the left camera
+    RosCom.Left(1.5) # Move left to see the pole with the left cameras
 
