@@ -12,12 +12,12 @@ from Utils import RosCom
 camCenterX = 640/2
 camCenterY = 480/2
 
-visionlist = {1,2,3,4,5,6}
+visionlist = [1,2,3,4,5,6]
 
 Dice1 = Dice()
 Dice2 = Dice()
 
-center_x = visionlist.Dice.centroide{4}
+center_x = visionlist.Dice.centroide[4]
 
 def align():  # movement values need to be adjusted (authors: Angel B. y Fernando G.)
     current_depth = RosCom.getDepth()
@@ -42,6 +42,16 @@ def align():  # movement values need to be adjusted (authors: Angel B. y Fernand
         RosCom.Left(1)
     elif center_x > camCenterX and center_y == camCenterY:
         RosCom.Right(1)
+# return true if found 3 dice, false if found less than 3
+def check_3():
+    counter = 0
+    for x in range(0, 5):
+        if visionlist[x] != None:
+            counter+=1
+    if counter >= 3:
+        return True
+    else:
+        return False
 
 
 def start(visionlist):
