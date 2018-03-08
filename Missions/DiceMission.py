@@ -1,79 +1,86 @@
-from Utils import Movement
-detected = False  # global variable
-
-targetdistance1 = 0  # this is the distance for the number 1 die
-targetdistance2 = 0  # this is the distance for the number 2 die
-targetdistance3 = 0  # this is the distance for the number 3 die
-targetdistance4 = 0  # this is the distance for the number 4 die
-targetdistance5 = 0  # this is the distance for the number 5 die
-targetdistance6 = 0  # this is the distance for the number 6 die
-
-targetangle1 = 0  # this is the angle for the number 1 die
-targetangle2 = 0  # this is the angle for the number 2 die
-targetangle3 = 0  # this is the angle for the number 3 die
-targetangle4 = 0  # this is the angle for the number 4 die
-targetangle5 = 0  # this is the angle for the number 5 die
-targetangle6 = 0  # this is the angle for the number 6 die
-
-targetdepth1 = 0  # this is the depth for the number 1 die
-targetdepth2 = 0  # this is the depth for the number 2 die
-targetdepth3 = 0  # this is the depth for the number 3 die
-targetdepth4 = 0  # this is the depth for the number 4 die
-targetdepth5 = 0  # this is the depth for the number 5 die
-targetdepth6 = 0  # this is the depth for the number 6 die
-
-alldistances = [targetdistance1, targetdistance2, targetdistance3, targetdistance4, targetdistance5, targetdistance6]
-max_distance = max(alldistances)
-
-alldepths = [targetdepth1, targetdepth2, targetdepth3,targetdepth4, targetdepth5, targetdepth6]
-max_depth = max(alldepths)
-
-targetdepthfinal = 2 + max_depth  # this is the depth for the final elevation (+2 highest dice depth)
-targetdistancefinal = 2 + max_distance  # this is the distance for the final acceleration (+2 farthest dice distance)
-initialdepth = 0 # this is the depth the submarine starts the mission in
-
-placeholder = 0  # change placeholder after given the correct distance
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
 
 
-def start():
+@author: Gabs & Sachy & Chris
+"""
+from Utils.Dice import Dice
 
-    print("Starting Mission")
+from Utils import RosCom
 
-# assuming that the sub will see the dice at start
+camCenterX = 640/2
+camCenterY = 480/2
 
-    while not detected:
-        Movement.rotate(90)
-        Movement.rotate(-180)
-        Movement.rotate(90)
-        Movement.depth(placeholder)
+visionlist = {1,2,3,4,5,6}
 
-# end loop when Vision detects the dice
-# position itself to position of die and move towards it
+Dice1 = Dice()
+Dice2 = Dice()
 
-    Movement.rotate(targetangle5)
-    Movement.depth(targetdepth5)
-    Movement.forward(targetdistance5)
+center_x = visionlist.Dice.centroide{4}
 
-# It has to push the die 10 degrees
-# after it has pushed the die, go back
-
-    Movement.backward(targetdistance5)
-
-# position itself to the detected second die
-    Movement.rotate(targetangle6)
-    Movement.depth(targetdepth6)
-    Movement.forward(targetdistance6)
-
-# move backwards to continue rest of competition
-    Movement.backward(targetdistance6)
-
-# move upwards past the highest dice, move forward and when dice passes final dice, go back down
-    Movement.depth(targetdepthfinal)
-    Movement.forward(targetdistancefinal)
-    Movement.depth(initialdepth)
-
-    print("Mission Accomplished")
+def align():  # movement values need to be adjusted (authors: Angel B. y Fernando G.)
+    current_depth = RosCom.getDepth()
+    set_center()
+    if center_x < camCenterX and center_y < camCenterY:
+        RosCom.Left(1)
+        RosCom.setDepth(current_depth - 1)
+    elif center_x < camCenterX and center_y > camCenterY:
+        RosCom.Left(1)
+        RosCom.setDepth(current_depth + 1)
+    elif center_x > camCenterX and center_y > camCenterY:
+        RosCom.Right(1)
+        RosCom.setDepth(current_depth + 1)
+    elif center_x > camCenterX and center_y < camCenterY:
+        RosCom.Right(1)
+        RosCom.setDepth(current_depth - 1)
+    elif center_x == camCenterX and center_y < camCenterY:
+        RosCom.setDepth(current_depth - 1)
+    elif center_x == camCenterX and center_y > camCenterY:
+        RosCom.setDepth(current_depth + 1)
+    elif center_x < camCenterX and center_y == camCenterY:
+        RosCom.Left(1)
+    elif center_x > camCenterX and center_y == camCenterY:
+        RosCom.Right(1)
 
 
-# Need to consider the exact locations and dimensions of EVERY dice
-# so that the sub can successfully evade the unnecessary dice and push the correct dice.
+def start(visionlist):
+    for Dice in visionlist:
+        if x. == 5:
+            for Dice y in visionlist:
+                if y.number == 6:
+
+                    centerofdice5 = visionlist.Dice.centroide{4}
+                    leftmovement5 = 320 - centerofdice5{0}
+                    rightmovement5 = centerofdice5{0} - 320
+                    updepth5 = 240 - centerofdice5{1}
+                    downdepth5 = centerofdice5{1} - 240
+
+                    if centerofdice5{0} > 320 and centerofdice5{1} > 240:
+                        RosCom.left(leftmovement5)
+                        RosCom.depth(downdepth5)
+                        RosCom.forward()
+                        RosCom.backward()
+                        RosCom.depth(downdepth5)
+                        RosCom.right(leftmovement5)
+                    elif centerofdice5 < 320:
+                        RosCom.right(rightmovement5)
+                        RosCom.forward()
+                        RosCom.backward()
+                        RosCom.left(rightmovement5)
+                    else:
+                        RosCom.forward()
+
+
+                elif y.number == 2:
+                    missionlogic
+
+        elif x.number == 6:
+            for Dice y in visionlist:
+                if y.number == 1:
+                    missionlogic
+
+        elif x.number == 3:
+            for Dice y in visionlist:
+                if y.number == 4
+                    missionlogic

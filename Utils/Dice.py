@@ -11,10 +11,10 @@ class Dice:
 
     def __init__(self):
 
-        xcoordinate = 1
-        ycoordinate = 0
-        subdistance = 0
-        numberofdice = 0
+        self.xcoordinate = 0
+        self.ycoordinate = 0
+        self.subdistance = 0
+        self.numberofdice = 0
 
 """Setters"""
 def setterX(self, recieved):
