@@ -14,47 +14,47 @@ from Utils.QualifyingTube import QTube
 from Utils import RosCom
 
 #Variables
-xGate = 0       # X coordinate from the center of the gate with respect to the center of the camera
-xPole = 0       # X coordinate from the center of the pole with respect to the center of the camera
-xPixels = 640   # Total x pixels of camera
-yPixels = 480   # Total y pixels of camera
-seeGate = False # Do I see gate
-seePoleFrontCam = False # Do I see pole with the front camera
-seePoleSideCam = False # Do I see pole with the side camera
-boxRadius = 50  # Bounding box for the gate
+xGate = 0                                # X coordinate from the center of the gate with respect to the center of the camera
+xPole = 0                                # X coordinate from the center of the pole with respect to the center of the camera
+xPixels = 640                            # Total x pixels of camera
+yPixels = 480                            # Total y pixels of camera
+seeGate = False                          # Do I see gate
+seePoleFrontCam = False                  # Do I see pole with the front camera
+seePoleSideCam = False                   # Do I see pole with the side camera
+boxRadius = 50                           # Bounding box for the gate
 topGateDist = QGate.distTopGateFromSurf  # Top distance from the surface to gate
-noNameHeight = 0.5  # Submarine height
+noNameHeight = 0.5                       # Submarine height
 passingDepth = topGateDist + 2 * noNameHeight # Safe y coordinate to pass the gate
 
 
 #Functions
-def findCenterGate():   # update center of gate with respect to center of the camera
+def findCenterGate():                    # update center of gate with respect to center of the camera
     global xGate
     gateCoor = QGate.getcentroid()
     xGate = gateCoor[0]
 
-def findCenterPole():   # update center of gate with respect to center of the camera
+def findCenterPole():                    # update center of gate with respect to center of the camera
     global xPole
     poleCoor = QTube.getcentroid()
     xPole = poleCoor[0]
 
-def seeGateVision():    # Asks vision if I see gate or not
+def seeGateVision():                     # Asks vision if I see gate or not
     global seeGate
     seeGate = QGate.getseePole
 
-def seePoleFrontCamVision():    # Asks vision if I see pole or not
+def seePoleFrontCamVision():             # Asks vision if I see pole or not
     global seePoleFrontCam
     if QGate.getcamera() == 1:
         seePoleFrontCam = QGate.getseePole()
 
-def seePoleSideCamVision():    # Asks vision if I see pole or not
+def seePoleSideCamVision():              # Asks vision if I see pole or not
     global seePoleSideCam
     if QGate.getcamera() == 2:
         seePoleSideCam = QGate.getseePole()
 
 #Mission Logic
 RosCom.setPoint()
-RosCom.setMission(0)    # Tells vision we are doing the qualifying maneuver
+RosCom.setVisionMission(0)                     # Tells vision we are doing the qualifying maneuver
 seeGateVision()
 
 while seeGate:
@@ -63,17 +63,25 @@ while seeGate:
 
     if abs(xGate - xPixels/2) > boxRadius:
         if xGate - xPixels/2 > 0:
-            RosCom.moveLeft(True,0.3) # Move to the left to align with the center
+            RosCom.moveLeft(40)    # Move to the left to align with the center
         else:
-            RosCom.moveRight(True,0.3) # Move to the right to align with the center
+            RosCom.moveRight(40)   # Move to the right to align with the center
     else:
-        RosCom.moveFoward(True,5)
+        RosCom.moveFoward(True,6)
 
 while not seePoleFrontCam:
     RosCom.moveFoward(1)
+    seePoleFrontCamVision()
 
-while seePoleFrontCam: # CJ think this while is unnecessary
-    RosCom.Left(1.5) # Move left to see the pole with the left cameras
+while seePoleFrontCam:                  # CJ think this while is unnecessary
+    findCenterPole()                    # Move left to see the pole with the left cameras
+
+    if xPole < 19 / 20 * xPixels:
+        RosCom.moveLeft(40)             # HALP Im gonna keep moving left  # How do I tell it to stop
+    else:
+        RosCom.moveForward(40)
+
+    seePoleFrontCamVision()
 
 while not seePoleSideCam:
     RosCom.Foward(0.25)
