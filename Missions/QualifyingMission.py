@@ -12,6 +12,8 @@
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
 from Utils import RosCom
+from time import *
+
 
 #Variables
 xGate = 0                                # X coordinate from the center of the gate with respect to the center of the camera
@@ -25,7 +27,7 @@ boxRadius = 50                           # Bounding box for the gate
 topGateDist = QGate.distTopGateFromSurf  # Top distance from the surface to gate
 noNameHeight = 0.5                       # Submarine height
 passingDepth = topGateDist + 2 * noNameHeight # Safe y coordinate to pass the gate
-
+sideCamBoxRadius = 25
 
 #Functions
 def findCenterGate():                    # update center of gate with respect to center of the camera
@@ -40,17 +42,35 @@ def findCenterPole():                    # update center of gate with respect to
 
 def seeGateVision():                     # Asks vision if I see gate or not
     global seeGate
-    seeGate = QGate.getseePole
+    seeGate = QTube.getseePole()
 
 def seePoleFrontCamVision():             # Asks vision if I see pole or not
     global seePoleFrontCam
     if QGate.getcamera() == 1:
-        seePoleFrontCam = QGate.getseePole()
+        seePoleFrontCam = QTube.getseePole()
 
 def seePoleSideCamVision():              # Asks vision if I see pole or not
     global seePoleSideCam
     if QGate.getcamera() == 2:
-        seePoleSideCam = QGate.getseePole()
+        seePoleSideCam = QTube.getseePole()
+
+def move(direction,intensity, time):    # Forward Left Right Backward movements
+    if direction == "L":
+        RosCom.moveLeft(intensity)
+        time.sleep(time)
+        RosCom.moveLeft(0)
+    elif direction == "R":
+        RosCom.moveRight(intensity)
+        time.sleep(time)
+        RosCom.moveRight(0)
+    elif direction == "F":
+        RosCom.moveFoward(intensity)
+        time.sleep(time)
+        RosCom.moveFoward(0)
+    elif direction == "B":
+        RosCom.moveBackward(intensity)
+        time.sleep(time)
+        RosCom.moveBackward(0)
 
 #Mission Logic
 RosCom.setPoint()
@@ -63,30 +83,36 @@ while seeGate:
 
     if abs(xGate - xPixels/2) > boxRadius:
         if xGate - xPixels/2 > 0:
-            RosCom.moveLeft(40)    # Move to the left to align with the center
+            move("L", 40, 0.5)    # Move to the left to align with the center
         else:
-            RosCom.moveRight(40)   # Move to the right to align with the center
+            move("R", 40, 0.5)   # Move to the right to align with the center
     else:
-        RosCom.moveFoward(True,6)
+        move("F", 40, 0.5)
+
+    seeGateVision()
 
 while not seePoleFrontCam:
-    RosCom.moveFoward(1)
+    move("F", 40, 0.5)
     seePoleFrontCamVision()
 
 while seePoleFrontCam:                  # CJ think this while is unnecessary
     findCenterPole()                    # Move left to see the pole with the left cameras
 
-    if xPole < 19 / 20 * xPixels:
-        RosCom.moveLeft(40)             # HALP Im gonna keep moving left  # How do I tell it to stop
+    if xPole < 17 / 20 * xPixels:
+        move("L", 40, 0.5)             # HALP Im gonna keep moving left  # How do I tell it to stop
     else:
-        RosCom.moveForward(40)
+        move("F", 40, 0.5)
 
     seePoleFrontCamVision()
 
 while not seePoleSideCam:
-    RosCom.Foward(0.25)
+    move("F", 40, 0.5)
+    seePoleSideCamVision()
 
-if seePoleSideCam:
+while seePoleSideCam:
+    findCenterPole()
+    if abs(xPole - xPixels / 2) > sideCamBoxRadius:
+
+
     RosCom.setpoint()
-
 
