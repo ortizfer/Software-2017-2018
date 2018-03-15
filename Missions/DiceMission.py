@@ -6,7 +6,7 @@
 @author: Gabs & Sachy & Chris
 """
 from Utils.Dice import Dice
-
+from time import *
 from Utils import RosCom
 
 camCenterX = 640/2
@@ -46,12 +46,29 @@ def align():  # movement values need to be adjusted (authors: Angel B. y Fernand
 def check_3():
     counter = 0
     for x in range(0, 5):
-        if visionlist[x] != None:
+        if visionlist[x] is not None:
             counter+=1
     if counter >= 3:
         return True
     else:
         return False
+
+def check_pair():
+    if visionlist[4] is not None and visionlist[5] is not None:
+        return 11
+    elif visionlist[5] is not None and visionlist[0]is not None:
+        return 7
+    elif visionlist[4] is not  None and visionlist[1] is not None:
+        return 7
+    elif visionlist[2] is not None and visionlist[3] is not None:
+        return 7
+    else:
+        return 0
+
+def forward_sleep(intensity, timer):
+    RosCom.moveFoward(intensity)
+    time.sleep(timer)
+    RosCom.moveFoward(0)
 
 
 def start(visionlist):
