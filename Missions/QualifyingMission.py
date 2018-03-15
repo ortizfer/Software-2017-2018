@@ -112,7 +112,15 @@ while not seePoleSideCam:
 while seePoleSideCam:
     findCenterPole()
     if abs(xPole - xPixels / 2) > sideCamBoxRadius:
+        if xPole - xPixels / 2 > 0:
+            move("L", 40, 0.5)  # Move to the left to align with the center
+        else:
+            move("R", 40, 0.5)  # Move to the right to align with the center
+    else:
 
 
-    RosCom.setpoint()
+    seePoleSideCamVision()
 
+RosCom.headingMotors(1, 0, 0)
+
+for
