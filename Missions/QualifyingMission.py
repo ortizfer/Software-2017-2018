@@ -89,11 +89,11 @@ while seeGate:
     else:
         RosCom.moveLeft(0)
         RosCom.moveRight(0)
-        RosCom.moveFoward(40)
+        move("F", 40, 6)
     seeGateVision()
 
 while not seePoleFrontCam:
-    move("F", 40, 0.5)
+    RosCom.moveFoward(40)
     seePoleFrontCamVision()
 
 while seePoleFrontCam:
