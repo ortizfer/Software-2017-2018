@@ -74,7 +74,7 @@ def move(direction,intensity, time):    # Forward Left Right Backward movements
 
 #Mission Logic
 RosCom.setPoint()
-RosCom.setVisionMission(0)                     # Tells vision we are doing the qualifying maneuver
+RosCom.setVisionMission(0)               # Tells vision we are doing the qualifying maneuver
 seeGateVision()
 
 while seeGate:
@@ -83,20 +83,21 @@ while seeGate:
 
     if abs(xGate - xPixels/2) > boxRadius:
         if xGate - xPixels/2 > 0:
-            move("L", 40, 0.5)    # Move to the left to align with the center
+            RosCom.moveLeft(20)           # Move to the left to align with the center
         else:
-            move("R", 40, 0.5)   # Move to the right to align with the center
+            RosCom.moveRight(20)           # Move to the right to align with the center
     else:
-        move("F", 40, 0.5)
-
+        RosCom.moveLeft(0)
+        RosCom.moveRight(0)
+        RosCom.moveFoward(40)
     seeGateVision()
 
 while not seePoleFrontCam:
     move("F", 40, 0.5)
     seePoleFrontCamVision()
 
-while seePoleFrontCam:                  # CJ think this while is unnecessary
-    findCenterPole()                    # Move left to see the pole with the left cameras
+while seePoleFrontCam:
+    findCenterPole()                   # Move left to see the pole with the left cameras
 
     if xPole < 17 / 20 * xPixels:
         move("L", 40, 0.5)             # HALP Im gonna keep moving left  # How do I tell it to stop
