@@ -147,5 +147,15 @@ while seeGate:
     else:
         RosCom.moveLeft(0)
         RosCom.moveRight(0)
-        RosCom.moveFoward(30)
+        RosCom.moveFoward(40)
     seeGateVision()
+
+seePoleSideCamVision()
+
+while not seePoleSideCam:
+    RosCom.moveFoward(20)
+    seePoleSideCamVision()
+
+if seePoleSideCam:
+    move("F", 40, 2)
+
