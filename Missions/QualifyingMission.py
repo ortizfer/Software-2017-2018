@@ -6,8 +6,6 @@
 @author: Tatiana Rodriguez and Carlos Morel
 """
 
-#binding box from other gate
-
 #Imports
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
@@ -33,31 +31,39 @@ counter = 0
 turnDegree = -10
 
 #Functions
-def findCenterGate():                    # update center of gate with respect to center of the camera
+"""update center of gate with respect to 
+center of the camera"""
+def findCenterGate():
     global xGate
     gateCoor = QGate.getcentroid()
     xGate = gateCoor[0]
 
-def findCenterPole():                    # update center of gate with respect to center of the camera
+"""update center of gate with respect to 
+center of the camera"""
+def findCenterPole():
     global xPole
     poleCoor = QTube.getcentroid()
     xPole = poleCoor[0]
 
-def seeGateVision():                     # Asks vision if I see gate or not
+"""Asks vision if I see gate or not"""
+def seeGateVision():
     global seeGate
     seeGate = QTube.getseePole()
 
-def seePoleFrontCamVision():             # Asks vision if I see pole or not
+"""Asks vision if I see pole or not"""
+def seePoleFrontCamVision():
     global seePoleFrontCam
     if QGate.getcamera() == 1:
         seePoleFrontCam = QTube.getseePole()
 
-def seePoleSideCamVision():              # Asks vision if I see pole or not
+"""Asks vision if I see pole or not"""
+def seePoleSideCamVision():
     global seePoleSideCam
     if QGate.getcamera() == 2:
         seePoleSideCam = QTube.getseePole()
 
-def move(direction,intensity, time):    # Forward Left Right Backward movements
+"""Forward Left Right Backward movements"""
+def move(direction,intensity, time):
     if direction == "L":
         RosCom.moveLeft(intensity)
         time.sleep(time)
