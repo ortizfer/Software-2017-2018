@@ -76,52 +76,75 @@ def move(direction,intensity, time):    # Forward Left Right Backward movements
         RosCom.moveBackward(0)
 
 #Mission Logic
+
+"""Sets my current direction as my north"""
 RosCom.headingMotors(1, 0, 0)
-RosCom.setVisionMission(0)               # Tells vision we are doing the qualifying maneuver
+
+""""Tells Vision which mission we are at"""
+RosCom.setVisionMission(0)
+
+"""Initializes seeGate variable"""
 seeGateVision()
 
+"""Submerges to a safe distance from the top 
+of the gate and checks if I am looking at the 
+horizontal center of the gate, if not, it 
+will align with it and go through"""
 while seeGate:
-    RosCom.setDepth(True, passingDepth)  # Submerge using the safe distance
+    RosCom.setDepth(True, passingDepth)
     findCenterGate()
 
     if abs(xGate - xPixels/2) > boxRadius:
         if xGate - xPixels/2 > 0:
-            RosCom.moveLeft(20)           # Move to the left to align with the center
+            RosCom.moveLeft(20)
         else:
-            RosCom.moveRight(20)           # Move to the right to align with the center
+            RosCom.moveRight(20)
     else:
         RosCom.moveLeft(0)
         RosCom.moveRight(0)
         move("F", 40, 6)
     seeGateVision()
 
+"""if I cannot see the marker, I will keep moving
+forward until I find it"""
 while not seePoleFrontCam:
     RosCom.moveFoward(40)
     seePoleFrontCamVision()
 
 RosCom.moveFoward(0)
 
+"""When the marker is found, it will check if it
+is on the right side of the camera, if not, it 
+will move to the left until it is, otherwise it
+will go forward"""
 while seePoleFrontCam:
-    findCenterPole()                   # Move left to see the pole with the left cameras
+    findCenterPole()
 
     if xPole < frontCamPoleBB:
-        RosCom.moveLeft(20)             # HALP Im gonna keep moving left  # How do I tell it to stop
+        RosCom.moveLeft(20)
     else:
         RosCom.moveFoward(40)
 
     seePoleFrontCamVision()
 
+"""It will keep moving forward until I see it 
+with the side camera"""
 while not seePoleSideCam:
     RosCom.moveFoward(40)
     seePoleSideCamVision()
 
+"""Once seen with the side camera, it checks if
+its in the center of the picture, if not, it will
+align the center of the marker with the center of
+the camera otherwise it will start to go around 
+the marker"""
 while seePoleSideCam:
     findCenterPole()
     if abs(xPole - xPixels / 2) > sideCamBoxRadius:
         if xPole - xPixels / 2 > 0:
-            RosCom.moveBackward(20)  # Move to the left to align with the center
+            RosCom.moveBackward(20)
         else:
-            RosCom.moveFoward(20)  # Move to the right to align with the center
+            RosCom.moveFoward(20)
     else:
         RosCom.headingMotors(1, 0, 0)
         RosCom.headingMotors(1, 1, turnDegree)
@@ -132,18 +155,23 @@ while seePoleSideCam:
 
 seeGateVision()
 
+"""After the turn, it will keep going forward until
+the gate is seen"""
 while not seeGate:
     RosCom.moveFoward(40)
     seeGateVision()
 
+"""Once found, it will make sure we are looking at 
+its center and go forward until we cannot see it 
+completely"""
 while seeGate:
     findCenterGate()
 
     if abs(xGate - xPixels/2) > boxRadius:
         if xGate - xPixels/2 > 0:
-            RosCom.moveLeft(20)           # Move to the left to align with the center
+            RosCom.moveLeft(20)
         else:
-            RosCom.moveRight(20)           # Move to the right to align with the center
+            RosCom.moveRight(20)
     else:
         RosCom.moveLeft(0)
         RosCom.moveRight(0)
@@ -152,6 +180,10 @@ while seeGate:
 
 seePoleSideCamVision()
 
+"""To make sure we are going through, we will 
+check the side cam for the side of the gate 
+which is similar to the marker and once we see it,
+it will go forward for 2 seconds"""
 while not seePoleSideCam:
     RosCom.moveFoward(20)
     seePoleSideCamVision()
