@@ -29,6 +29,8 @@ noNameHeight = 0.5                       # Submarine height
 passingDepth = topGateDist + 2 * noNameHeight # Safe y coordinate to pass the gate
 sideCamBoxRadius = 25
 frontCamPoleBB = xPixels - xPixels / 20
+counter = 0
+turnDegree = -10
 
 #Functions
 def findCenterGate():                    # update center of gate with respect to center of the camera
@@ -122,9 +124,28 @@ while seePoleSideCam:
             RosCom.moveFoward(20)  # Move to the right to align with the center
     else:
         RosCom.headingMotors(1, 0, 0)
-
+        RosCom.headingMotors(1, 1, turnDegree)
+        counter = counter + turnDegree
+        if counter == -180:
+            break
     seePoleSideCamVision()
 
+seeGateVision()
 
+while not seeGate:
+    RosCom.moveFoward(40)
+    seeGateVision()
 
-for
+while seeGate:
+    findCenterGate()
+
+    if abs(xGate - xPixels/2) > boxRadius:
+        if xGate - xPixels/2 > 0:
+            RosCom.moveLeft(20)           # Move to the left to align with the center
+        else:
+            RosCom.moveRight(20)           # Move to the right to align with the center
+    else:
+        RosCom.moveLeft(0)
+        RosCom.moveRight(0)
+        RosCom.moveFoward(30)
+    seeGateVision()
