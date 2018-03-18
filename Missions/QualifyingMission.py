@@ -28,6 +28,7 @@ topGateDist = QGate.distTopGateFromSurf  # Top distance from the surface to gate
 noNameHeight = 0.5                       # Submarine height
 passingDepth = topGateDist + 2 * noNameHeight # Safe y coordinate to pass the gate
 sideCamBoxRadius = 25
+frontCamPoleBB = xPixels - xPixels / 20
 
 #Functions
 def findCenterGate():                    # update center of gate with respect to center of the camera
@@ -73,7 +74,7 @@ def move(direction,intensity, time):    # Forward Left Right Backward movements
         RosCom.moveBackward(0)
 
 #Mission Logic
-RosCom.setPoint()
+RosCom.headingMotors(1, 0, 0)
 RosCom.setVisionMission(0)               # Tells vision we are doing the qualifying maneuver
 seeGateVision()
 
@@ -96,32 +97,34 @@ while not seePoleFrontCam:
     RosCom.moveFoward(40)
     seePoleFrontCamVision()
 
+RosCom.moveFoward(0)
+
 while seePoleFrontCam:
     findCenterPole()                   # Move left to see the pole with the left cameras
 
-    if xPole < 17 / 20 * xPixels:
-        move("L", 40, 0.5)             # HALP Im gonna keep moving left  # How do I tell it to stop
+    if xPole < frontCamPoleBB:
+        RosCom.moveLeft(20)             # HALP Im gonna keep moving left  # How do I tell it to stop
     else:
-        move("F", 40, 0.5)
+        RosCom.moveFoward(40)
 
     seePoleFrontCamVision()
 
 while not seePoleSideCam:
-    move("F", 40, 0.5)
+    RosCom.moveFoward(40)
     seePoleSideCamVision()
 
 while seePoleSideCam:
     findCenterPole()
     if abs(xPole - xPixels / 2) > sideCamBoxRadius:
         if xPole - xPixels / 2 > 0:
-            move("L", 40, 0.5)  # Move to the left to align with the center
+            RosCom.moveBackward(20)  # Move to the left to align with the center
         else:
-            move("R", 40, 0.5)  # Move to the right to align with the center
+            RosCom.moveFoward(20)  # Move to the right to align with the center
     else:
-
+        RosCom.headingMotors(1, 0, 0)
 
     seePoleSideCamVision()
 
-RosCom.headingMotors(1, 0, 0)
+
 
 for
