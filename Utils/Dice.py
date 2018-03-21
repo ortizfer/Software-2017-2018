@@ -11,30 +11,24 @@ class Dice:
 
     def __init__(self):
 
-        centroid = (0,0)
-        boundingBox = [0,0,0,0]
-        value = 5
+        self.centroid = (0,0)
+        self.boundingBox = 0
+        self.value = 5
 
-"""Setters"""
-def settercentroid(self, recieved):
-        self.receivedThing = recieved
+    def set_centroid(self, recieved):
+        self.centroid = recieved
 
-def setterbounding(self, recieved):
-        self.receivedThing = recieved
+    def set_bounding(self, recieved):
+        self.boundingBox = recieved
 
-def settervalue(self, recieved):
-        self.receivedThing = recieved
+    def set_value(self, recieved):
+        self.value = recieved
 
+    def get_centroid(self):
+        return self.centroid
 
-"""Getters"""
-def gettercentroid(self):
-        return self.receivedThing
+    def get_bounding(self):
+        return self.boundingBox
 
-def getterbounding(self):
-        return self.receivedThing
-
-def gettervalue(self):
-        return self.receivedThing
-
-
-
+    def get_value(self):
+        return self.value
