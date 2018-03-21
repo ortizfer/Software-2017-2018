@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 
-
+sup
 @author: Gabriel, Fernando G. & Angel
 """
 from Utils.Dice import Dice
