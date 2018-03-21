@@ -6,14 +6,14 @@
 @author: Tatiana Rodriguez and Carlos Morel
 """
 
-#Imports
+# Imports
 from Utils.QualifyingGate import QGate
 from Utils.QualifyingTube import QTube
 from Utils import RosCom
 from time import *
 
 
-#Variables
+# Variables
 xGate = 0                                # X coordinate from the center of the gate with respect to the center of the camera
 xPole = 0                                # X coordinate from the center of the pole with respect to the center of the camera
 xPixels = 640                            # Total x pixels of camera
@@ -30,7 +30,7 @@ frontCamPoleBB = xPixels - xPixels / 20
 counter = 0
 turnDegree = -10
 
-#Functions
+# Functions
 """update center of gate with respect to 
 center of the camera"""
 def findCenterGate():
@@ -81,7 +81,7 @@ def move(direction,intensity, time):
         time.sleep(time)
         RosCom.moveBackward(0)
 
-#Mission Logic
+# Mission Logic
 
 """Sets my current direction as my north"""
 RosCom.headingMotors(1, 0, 0)
