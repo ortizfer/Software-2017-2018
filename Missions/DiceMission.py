@@ -3,7 +3,7 @@
 """
 
 
-@author: Gabs & Sachy & Chris
+@author: Gabriel, Fernando G. & Angel
 """
 from Utils.Dice import Dice
 from time import *
@@ -19,7 +19,7 @@ Dice2 = Dice()
 
 center_x = visionlist.Dice.centroide[4]
 
-def align():  # movement values need to be adjusted (authors: Angel B. y Fernando G.)
+def align():  # movement values need to be adjusted
     current_depth = RosCom.getDepth()
     set_center()
     if center_x < camCenterX and center_y < camCenterY:
