@@ -14,12 +14,12 @@ class QTube:
     allowableTubeApproach = 1
 
     def __init__(self):
-        centroid = (0, 0)
-        boundingBox = [0, 0, 0, 0]
-        value = 5
-        angle = 0
-        camera = 1
-        seePole = False
+        self.centroid = (0, 0)
+        self.boundingBox = [0, 0, 0, 0]
+        self.value = 5
+        self.angle = 0
+        self.camera = 1
+        self.seePole = False
 
 # Setters
 
