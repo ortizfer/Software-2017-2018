@@ -14,12 +14,19 @@ class Path:
         self.longerLineRight = False   # Tell us if the left line of the path is longer
 
 #Setters
-    def setxpathMassCenter(self, received):
-        self.xpathMassCenter = received
+    def setlongerLineLeft(self, received):
+        self.longerLineLeft = received
+    def setlongerLineRight(self, received):
+        self.longerLineRight = received
+    def setwumbo(self, received):
+        self.wumbo = received
 
 #Getters
-    def getxpathMassCenter(self):
-        return self.xpathMassCenter
-
+    def getlongerLineLeft(self):
+        return self.longerLineLeft
+    def getlongerLineRight(self):
+        return self.longerLineRight
+    def getwumbo(self):
+        return self.wumbo
 
 

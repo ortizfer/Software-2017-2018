@@ -32,7 +32,7 @@ class QGate:
     def setseeGate(self, received):
         self.seeGate = received
 
-    #Getters
+#Getters
 
     def getcentroid(self):
         return self.centroid
