@@ -59,3 +59,37 @@ while (not foundPathBottom):
     Movement.foward() #By how many meters should the submarine move foward
     searchForPathBottom(foundPathBottom)
 
+"""CMOREL NEW PATH BEGINNING
+
+# Imports
+from Utils import Path
+from Utils import RosCom
+from Missions.QualifyingMission import move
+
+# Variables
+
+seePath = False  # Do I see path
+
+# Functions
+def seePathVision():
+    global seePath
+    seePath = Path.getseePath()
+
+
+
+# Mission Logic
+
+"""Tells VISION in what mission we are"""
+RosCom.setVisionMission(2)
+
+"""Initialize seePath variable"""
+seePathVision()  # Can I see the path from the bottom camera at our initial depth
+
+"""What Charlie thinks the mission will continue
+WAITING ON THE STUPED HOE FROM TATS"""
+
+"""After seeing the path with the bottom camera
+at the initial depth"""
+
+RosCom.setDepth(enable,12)  # Go down until we are 12 feet
+"""

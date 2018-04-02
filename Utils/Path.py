@@ -13,6 +13,7 @@ class Path:
         self.longerLineLeft = False   # Tell us if the left line of the path is longer
         self.longerLineRight = False   # Tell us if the left line of the path is longer
         self.seePath = False
+
 #Setters
     def setlongerLineLeft(self, received):
         self.longerLineLeft = received
