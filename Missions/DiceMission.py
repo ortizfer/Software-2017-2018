@@ -66,9 +66,9 @@ def check_pair():
         return 0
 
 def forward_sleep(intensity, timer):
-    RosCom.moveFoward(intensity)
+    RosCom.moveForward(intensity)
     time.sleep(timer)
-    RosCom.moveFoward(0)
+    RosCom.moveForward(0)
 
 
 def start(visionlist):
