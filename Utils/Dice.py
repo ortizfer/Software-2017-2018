@@ -11,18 +11,18 @@ class Dice:
 
     def __init__(self):
 
-        self.centroid = (0,0)
+        self.centroid = (0, 0)
         self.boundingBox = 0
         self.value = 5
 
-    def set_centroid(self, recieved):
-        self.centroid = recieved
+    def set_centroid(self, received):
+        self.centroid = received
 
-    def set_bounding(self, recieved):
-        self.boundingBox = recieved
+    def set_bounding(self, received):
+        self.boundingBox = received
 
-    def set_value(self, recieved):
-        self.value = recieved
+    def set_value(self, received):
+        self.value = received
 
     def get_centroid(self):
         return self.centroid
