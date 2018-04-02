@@ -48,7 +48,7 @@ def findCenterPole():
 """Asks vision if I see gate or not"""
 def seeGateVision():
     global seeGate
-    seeGate = QTube.getseeGate()
+    seeGate = QGate.getseeGate()
 
 """Asks vision if I see pole or not"""
 def seePoleFrontCamVision():

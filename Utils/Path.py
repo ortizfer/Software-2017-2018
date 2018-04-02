@@ -12,7 +12,7 @@ class Path:
         self.wumbo = 0   # Angle from the horizontal line of the camera and the path
         self.longerLineLeft = False   # Tell us if the left line of the path is longer
         self.longerLineRight = False   # Tell us if the left line of the path is longer
-
+        self.seePath = False
 #Setters
     def setlongerLineLeft(self, received):
         self.longerLineLeft = received
@@ -20,6 +20,8 @@ class Path:
         self.longerLineRight = received
     def setwumbo(self, received):
         self.wumbo = received
+    def setseePath(self, received):
+        self.seePath = received
 
 #Getters
     def getlongerLineLeft(self):
@@ -28,5 +30,7 @@ class Path:
         return self.longerLineRight
     def getwumbo(self):
         return self.wumbo
+    def getseePath(self):
+        return self.seePath
 
 
