@@ -4,6 +4,8 @@
 
 sup
 @author: Gabriel, Fernando G. & Angel
+
+Here we are gonna start defining variables and imports
 """
 from Utils.Dice import Dice
 from time import *
@@ -19,6 +21,7 @@ Dice2 = Dice()
 
 center_x = visionlist.Dice.centroide[4]
 
+""""This is the self-alignment program"""
 def align():  # movement values need to be adjusted
     current_depth = RosCom.getDepth()
     set_center()
@@ -53,6 +56,7 @@ def check_3():
     else:
         return False
 
+""""Here we are gonna check all patterns possible for 7 and 11, if such pattern exists then we go with that one"""
 def check_pair():
     if visionlist[4] is not None and visionlist[5] is not None:
         return 11
@@ -70,7 +74,7 @@ def forward_sleep(intensity, timer):
     time.sleep(timer)
     RosCom.moveForward(0)
 
-
+""""Here we are gonna start the mission using all defined functions"""
 def start(visionlist):
     for Dice in visionlist:
         if x. == 5:
