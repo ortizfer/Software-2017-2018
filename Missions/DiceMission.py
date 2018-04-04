@@ -11,6 +11,9 @@ from Utils.Dice import Dice
 from time import *
 from Utils import RosCom
 
+"""Tells VISION with mission we are"""
+Roscom.setVisionMission(3)
+
 camCenterX = 640/2
 camCenterY = 480/2
 
