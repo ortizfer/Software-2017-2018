@@ -47,18 +47,21 @@ line_b = lines_length[1]  # rightmost
 
 
 # while path mission is true
-while mission_on():
-    if line_a - line_b >= 1.00:
-        if line_a > line_b:
-            align = align + get_angle()
-            # RosCom.headingMotors(1, 7, align) # 7 is for eliminating compiler errors, don't know what should go there
-            # Tell ros to align sub to the new angle
-            RosCom.moveForward(35)
-        elif line_b > line_b:
-            align = align - get_angle()
-            # RosCom.headingMotors(1, 7, align)
-            # Tell ros to align sub to the new angle
-            RosCom.moveForward(35)
-    else:
-        # If the difference between lines lengths is less than 1, then continue to move forward
-        RosCom.moveForward(25)
+def mission_run():
+    while mission_on():
+        if line_a - line_b >= 1.00:
+            if line_a > line_b:
+                align = align + get_angle()
+                # RosCom.headingMotors(1, 7, align) # 7 is for eliminating compiler errors, don't know what should go there
+                # Tell ros to align sub to the new angle
+                RosCom.moveForward(35)
+            elif line_b > line_b:
+                align = align - get_angle()
+                # RosCom.headingMotors(1, 7, align)
+                # Tell ros to align sub to the new angle
+                RosCom.moveForward(35)
+        else:
+            # If the difference between lines lengths is less than 1, then continue to move forward
+            RosCom.moveForward(25)
+    # Method that verifies if mission is still on(running), should return true or false
+    mission_run()
