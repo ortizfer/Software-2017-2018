@@ -4,11 +4,11 @@ from Missions import MissionGate, QualifyingMission
 
 ###    Declare Variables    ###
 # Must get data from mission controller
-qualifying = sys.argv[1];
-gate = sys.argv[2];
-path = sys.argv[3];
-dice = sys.argv[4];
-fake_island = sys.argv[5];
+qualifying = sys.argv[1]
+gate = sys.argv[2]
+path = sys.argv[3]
+dice = sys.argv[4]
+fake_island = sys.argv[5]
 
 ###    Health/Protocol Check    ###
 # Verify that all components are up and running and that everything is ready to send/receive
