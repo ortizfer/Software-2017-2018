@@ -5,7 +5,7 @@ from std_msgs.msg import Int32, Float32, Bool
 
 controller_flag = False
 depth_set_point = 0
-
+error = 0
 
 FEET_TO_PWM = 6.25
 FEET_TO_METERS = 3.281
@@ -17,7 +17,7 @@ def toggle_controller_running_callback(data):
     controller_flag = data.data
 
 
-def depth_measurement_callback(data)
+def depth_measurement_callback(data):
     global current_depth
     global controller_flag
 
@@ -28,7 +28,7 @@ def depth_measurement_callback(data)
         motor_pub.publish(0)
 
 
-def depth_set_point_callback(data)
+def depth_set_point_callback(data):
     global depth_set_point
     depth_set_point = data.data
 
@@ -49,11 +49,11 @@ def run_controller(yaw):
 
 def initialize_node():
 
-    motor_publishers()
     rospy.init_node('depth_controller')
     
     global motor_pub
     global error_pub
+    global error
     
     motor_pub = rospy.Publisher('vertical_motors', Int32, queue_size=10)
     error_pub = rospy.Publisher('depth_error', Int32, queue_size = 10)
