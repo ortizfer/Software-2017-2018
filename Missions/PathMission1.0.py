@@ -12,10 +12,7 @@ from Utils import RosCom
     left: sum the angles, adding the angle with the initial angle will make th sub turn left
     right: subtract the angles, subtracting the angle from the initial angle will make the sub turn right
 """
-
-
-
-
+RosCom.setVisionMission(2)
 
 def found_path_bottom():
     # search for path through bottom camera
@@ -29,34 +26,39 @@ def search_for_path():
     return True;
 
 
+def get_angle():
+    angle = 0
+    # Get the angle given by vision
+    return angle
+
+def mission_on(): # Notify when the path mission starts
+    return True
 
 search_for_path()
 
 # RosCom.setDepth(1, 13.00) specify and set depth
-path_angle = 0  # angle given by Vision
 align = 0  # set angle
 path_mission = True
 
 
 lines_length = []  # Get vision
-lines_a = lines_length[0]  # leftmost
-lines_b = lines_length[1]  # rightmost
+line_a = lines_length[0]  # leftmost
+line_b = lines_length[1]  # rightmost
 
 
 # while path mission is true
-while path_mission:
-    if float(lines_a) - float(lines_b) >= 1.00:
-        if float(lines_a) > float(lines_b):
-            align = align + path_angle
-            RosCom.headingMotors(1, 7, align) # 7 is for eliminating compiler errors, don't know what should go there
+while mission_on():
+    if line_a - line_b >= 1.00:
+        if line_a > line_b:
+            align = align + get_angle()
+            # RosCom.headingMotors(1, 7, align) # 7 is for eliminating compiler errors, don't know what should go there
+            # Tell ros to align sub to the new angle
             RosCom.moveForward(35)
-        elif float(lines_b) > float(lines_a):
-            align = align - path_angle
-            RosCom.headingMotors(1, 7, align)
+        elif line_b > line_b:
+            align = align - get_angle()
+            # RosCom.headingMotors(1, 7, align)
+            # Tell ros to align sub to the new angle
             RosCom.moveForward(35)
     else:
+        # If the difference between lines lengths is less than 1, then continue to move forward
         RosCom.moveForward(25)
-
-
-def runMission(angle):
-    return None  # Eliminating compiler errors
