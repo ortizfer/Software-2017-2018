@@ -24,6 +24,7 @@ if qualifying == '1':
 if gate == '1':
     # call Gate();
     print("Executing gate mission")
+    MissionGate.mission()
 
 # Follow the Path
 if path == '1':

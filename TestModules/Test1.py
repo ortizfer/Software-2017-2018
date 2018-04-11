@@ -50,6 +50,7 @@ if receivedNum == 6:
 else:
     numView = '111'
 
+
 send_view()
 
 """

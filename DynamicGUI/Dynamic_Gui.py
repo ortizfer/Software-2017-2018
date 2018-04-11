@@ -1,4 +1,4 @@
-from Tkinter import *
+from tkinter import *
 import os
 
 def run():
@@ -47,7 +47,7 @@ def run():
         dice = 0
         fakeIsland = 0
     
-    os.system("python " + os.path.dirname(__file__) + "\missionLogic.py " + str(qualifying) + " " + str(gate) + " " + str(path) + " " + str(dice) + " " + str(fakeIsland));
+    os.system("python " + os.path.dirname(__file__) + "/missionLogic.py " + str(qualifying) + " " + str(gate) + " " + str(path) + " " + str(dice) + " " + str(fakeIsland));
     
 root = Tk()
 
