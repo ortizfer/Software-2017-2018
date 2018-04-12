@@ -16,7 +16,7 @@ from rumarino.msg import *
 ##---------------------Publishers---------------------------##
 
 def initCommunications():	
-    rospy.init_node('mission_logic', anonymous=True)
+    rospy.init_node('RosCom', anonymous=True)
 
     global depth_pub
     global align_pub

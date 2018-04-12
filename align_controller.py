@@ -16,19 +16,20 @@ def motor_publishers():
 
 
 def run_controller(yaw):
-    error = set_point-yaw.data
-    if(error > 180):
-        error -= 360
+    # error = set_point-yaw.data
+    # if(error > 180):
+    #     error -= 360
+    #
+    # elif (error < -180):
+    #     error += 360
+    #
+    # motor_speed = error*CONTROLLER_GAIN
+    #
+    # if(motor_speed > MOTOR_CAP):
+    #     motor_speed = MOTOR_CAP
+    # elif( motor_speed < MOTOR_CAP*-1):
+    #     motor_speed = -1*MOTOR_CAP
 
-    elif (error < -180):
-        error += 360
-    
-    motor_speed = error*CONTROLLER_GAIN
-
-    if(motor_speed > MOTOR_CAP):
-        motor_speed = MOTOR_CAP
-    elif( motor_speed < MOTOR_CAP*-1):
-        motor_speed = -1*MOTOR_CAP
 
     pub.publish(int(motor_speed))
 
@@ -49,12 +50,11 @@ def listener():
     motor_publishers()
     rospy.init_node('align_controller')
 
-    rospy.Subscriber('vn100_yaw', Float64, callback)
+    rospy.Subscriber('align_setpoint', rosmsg , callback)
+    rospy.Subscriber('align_movement', rosmsg , callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 
 if __name__ == '__main__':
     listener()
-    for i in range(100):   
-        print('WERE DONE MOTHERFUCKERS')
