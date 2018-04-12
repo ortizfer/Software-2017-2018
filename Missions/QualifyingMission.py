@@ -94,12 +94,14 @@ def runQualifying():
 
         if abs(xGate - xPixels/2) > boxRadius:
             if xGate - xPixels/2 > 0:
-                RosCom.moveLeft(20)
+                RosCom.headingMotors(1,1,90)
+                move("F",40,1)
+                RosCom.headingMotors(1,1,-90)
             else:
-                RosCom.moveRight(20)
+                RosCom.headingMotors(1,1,-90)
+                move("F",40,1)
+                RosCom.headingMotors(1,1,90)
         else:
-            RosCom.moveLeft(0)
-            RosCom.moveRight(0)
             move("F", 40, 6)
         seeGateVision()
 
@@ -119,7 +121,9 @@ def runQualifying():
         findCenterPole()
 
         if xPole < frontCamPoleBB:
-            RosCom.moveLeft(20)
+            RosCom.headingMotors(1, 1, 90)
+            move("F", 40, 1)
+            RosCom.headingMotors(1, 1, -90)
         else:
             RosCom.moveFoward(40)
 
@@ -167,12 +171,14 @@ def runQualifying():
 
         if abs(xGate - xPixels/2) > boxRadius:
             if xGate - xPixels/2 > 0:
-                RosCom.moveLeft(20)
+                RosCom.headingMotors(1,1,90)
+                move("F",40,1)
+                RosCom.headingMotors(1,1,-90)
             else:
-                RosCom.moveRight(20)
+                RosCom.headingMotors(1,1,-90)
+                move("F",40,1)
+                RosCom.headingMotors(1,1,90)
         else:
-            RosCom.moveLeft(0)
-            RosCom.moveRight(0)
             RosCom.moveFoward(40)
         seeGateVision()
 
