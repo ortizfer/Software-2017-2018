@@ -1,0 +1,2 @@
+int32 forwardsIntensity
+bool movingForwards

@@ -7,21 +7,30 @@ controller_flag = False
 depth_set_point = 0
 error = 0
 
+controller_gain= 20.51
+controller_bias = 29
+
 FEET_TO_PWM = 6.25
 FEET_TO_METERS = 3.281
 MOTOR_CAP = 50
 
 
-def toggle_controller_running_callback(data):
+def controller_setup_callback(data):
     global controller_flag
-    controller_flag = data.data
+    global controller_gain
+    global controller_bias
 
+    controller_flag = data.controllerRunning
+    if(data.controllerGain > 0):
+        controller_gain = data.controllerGain
+    if(data.controllerBias > 0):
+        controller_bias = data.controllerBias
 
 def depth_measurement_callback(data):
-    global current_depth
+    global depth_current
     global controller_flag
 
-    current_depth = data.data
+    depth_current = data.data
     if(controller_flag == True):
         run_controller(data)
     else:
@@ -33,17 +42,18 @@ def depth_set_point_callback(data):
     depth_set_point = data.data
 
 
-def run_controller(yaw):
+def run_controller(depth):
     global error
-    error = set_point-yaw.data
-    
-    depth_error = (depth_set_point - current_depth)*FEET_TO_METERS
-    motorSpeed = depth_error*depthError
+    global controller_gain
+    global controller_bias
 
-    if(motorSpeed > MOTOR_CAP):
-        motorSpeed = MOTOR_CAP
-    if(motorSpeed < -1*MOTOR_CAP):
-        motorSpeed = -1*MOTOR_CAP
+    error = depth_set_point - depth.data    
+    motor_speed = (error - controller_bias)*controller_gain
+
+    if(motor_speed > MOTOR_CAP):
+        motor_speed = MOTOR_CAP
+    if(motor_speed < -1*MOTOR_CAP):
+        motor_speed = -1*MOTOR_CAP
     motor_pub.publish(int(motor_speed))
 
 
@@ -56,10 +66,17 @@ def initialize_node():
     global error
     
     motor_pub = rospy.Publisher('vertical_motors', Int32, queue_size=10)
-    error_pub = rospy.Publisher('depth_error', Int32, queue_size = 10)
+    error_pub = rospy.Publisher('depth_error', Float32, queue_size = 10)
+
     rospy.Subscriber('depth_set_point', Float32, depth_set_point_callback)
-    rospy.Subscriber('depth_controller_running', Bool, toggle_controller_running_callback)
-    rospy.Subscriber('current_depth', Float32, depth_measurement_callback)
+    rospy.Subscriber('depth_current', Float32, depth_measurement_callback)
+    #TODO - This is a bad design since it cant be altered in real time
+
+
+    rospy.Subscriber('depth_controller_setup', Bool, controller_setup_callback)
+    rospy.set_param('depth_controller_bias', '29')
+    rospy.set_param('depth_controller_gain', '20.51')
+    
     motor_pub.publish(0)
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():

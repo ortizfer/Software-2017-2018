@@ -1,0 +1,4 @@
+bool controllerRunning
+bool polarity
+float32 controllerGain
+float32 controllerBias
