@@ -17,7 +17,7 @@ bounding_box_percent = 0.2
 fovh = 80 # Field of View Horizontal
 fovv = 64 # Field of View Vertical
 # ROS NODE INIT
-pub = rospy.Publisher("visionChatter", Float64, queue_size=5)
+pub = rospy.Publisher("visionAngleChatter", Float64, queue_size=5)
 rospy.init_node("visionTest", anonymous=True)
 
 # Create a VideoCapture object and read from input file
