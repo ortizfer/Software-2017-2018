@@ -13,6 +13,7 @@ leftBound = imageSize * errorPixels
 pub = rospy.Publisher("horizontal_controller", Int32)
 
 while(not rospy.is_shutdown()):
+
     if centroidX < leftBound:
         pixels = (centroidX - leftBound)
         if (pixels > 0):
