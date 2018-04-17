@@ -3,6 +3,7 @@
 #include <geometry_msgs/Twist.h>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Float32.h>
+#include <rumarino_package/HorizontalMotors.h>
 #include <Motors.h>
 #include <Wire.h>
 #include <MS5837.h>
@@ -60,10 +61,10 @@ void setup() {
   Wire.begin(); 
 
   // If pressure sensor does not initialize, throw error
-  while(!pressureSensor.init())
-  {
-      nh.logerror("Pressure sensor cannot initialize.");
-  }
+  //while(!pressureSensor.init())
+  //{
+  //    nh.logerror("Pressure sensor cannot initialize.");
+  //}
 }
 
 void loop() 
