@@ -10,7 +10,7 @@
 
 
 std_msgs::Float32 depth;
-MS5837 pressureSensor;
+//MS5837 pressureSensor;
 
 
 // Callback function for left motors
@@ -33,13 +33,13 @@ ros::Subscriber<std_msgs::Int32> subVerticalMotors("vertical_motors", setVertica
 ros::Subscriber<std_msgs::Int32> subHorizontalMotors("horizontal_motors", setHorizontalMotors);
 
 // Create the pressure sensor publisher 
-ros::Publisher pubToPressureSensor("depth_current", &depth);
+//ros::Publisher pubToPressureSensor("depth_current", &depth);
 
 
 void setup() {
   // Initializes the node and preparehoris for publishing and subscribing.
   nh.initNode();
-  nh.advertise(pubToPressureSensor);
+  //nh.advertise(pubToPressureSensor);
   nh.subscribe(subVerticalMotors);
   nh.subscribe(subHorizontalMotors);
 
@@ -47,7 +47,7 @@ void setup() {
   initializeVerticalMotors();
   initializeHorizontalMotors("old");
 
-  // Initializes wire (protocol to run)
+ /* Initializes wire (protocol to run)
   Wire.begin(); 
 
   // If pressure sensor does not initialize, throw error
@@ -55,15 +55,17 @@ void setup() {
   {
       nh.logerror("Pressure sensor cannot initialize.");
   }
+
+ */
 }
 
 void loop() 
 {
-  pressureSensor.read();
+  /* pressureSensor.read();
 
   depth.data = pressureSensor.depth()/(3.3);
 
   pubToPressureSensor.publish(&depth);
-  
+  */
   nh.spinOnce();
 }

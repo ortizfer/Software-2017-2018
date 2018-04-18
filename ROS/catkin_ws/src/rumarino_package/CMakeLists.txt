@@ -53,6 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
    HorizontalMotors.msg
    ControllerSetup.msg
    ForwardsCommand.msg
+   Centroid.msg
  )
 
 ## Generate services in the 'srv' folder

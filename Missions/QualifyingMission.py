@@ -23,7 +23,7 @@ seePoleFrontCam = False                  # Do I see pole with the front camera
 seePoleSideCam = False                   # Do I see pole with the side camera
 boxRadius = 50                           # Bounding box for the gate
 topGateDist = QGate.distTopGateFromSurf  # Top distance from the surface to gate
-noNameHeight = 0.5                       # Submarine height
+noNameHeight = 1.5                       # Submarine height in ft
 passingDepth = topGateDist + 2 * noNameHeight # Safe y coordinate to pass the gate
 sideCamBoxRadius = 25
 frontCamPoleBB = xPixels - xPixels / 20
@@ -94,13 +94,13 @@ def runQualifying():
 
         if abs(xGate - xPixels/2) > boxRadius:
             if xGate - xPixels/2 > 0:
-                RosCom.headingMotors(1,1,90)
-                move("F",40,1)
-                RosCom.headingMotors(1,1,-90)
+                RosCom.headingMotors(1, 1, 90)
+                move("F", 40, 1)
+                RosCom.headingMotors(1, 1, -90)
             else:
-                RosCom.headingMotors(1,1,-90)
-                move("F",40,1)
-                RosCom.headingMotors(1,1,90)
+                RosCom.headingMotors(1, 1, -90)
+                move("F", 40, 1)
+                RosCom.headingMotors(1, 1, 90)
         else:
             move("F", 40, 6)
         seeGateVision()
@@ -148,6 +148,7 @@ def runQualifying():
             else:
                 RosCom.moveFoward(20)
         else:
+            global counter
             RosCom.headingMotors(1, 0, 0)
             RosCom.headingMotors(1, 1, turnDegree)
             counter = counter + turnDegree
@@ -171,13 +172,13 @@ def runQualifying():
 
         if abs(xGate - xPixels/2) > boxRadius:
             if xGate - xPixels/2 > 0:
-                RosCom.headingMotors(1,1,90)
-                move("F",40,1)
-                RosCom.headingMotors(1,1,-90)
+                RosCom.headingMotors(1, 1, 90)
+                move("F", 40, 1)
+                RosCom.headingMotors(1, 1, -90)
             else:
-                RosCom.headingMotors(1,1,-90)
-                move("F",40,1)
-                RosCom.headingMotors(1,1,90)
+                RosCom.headingMotors(1, 1, -90)
+                move("F", 40, 1)
+                RosCom.headingMotors(1, 1, 90)
         else:
             RosCom.moveFoward(40)
         seeGateVision()
