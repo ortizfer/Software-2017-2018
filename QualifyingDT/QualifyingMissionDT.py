@@ -7,9 +7,6 @@
 """
 
 # Imports
-from Utils.QualifyingGate import QGate
-from Utils.QualifyingTube import QTube
-from Utils import RosCom
 from rumarino_package.msg import Centroid
 import rospy
 from time import *
@@ -37,8 +34,8 @@ turnDegree = -10
 center of the camera"""
 def findCenterGate():
     global xGate
-    gateCoor = QGate.getcentroid()
-    xGate = gateCoor[0]
+    gateCentroid = rospy.wait_for_message("Centroid_Gate_Front", Centroid, timeout = 5)
+    xGate = gateCentroid.x
 
 """update center of gate with respect to 
 center of the camera"""
