@@ -20,12 +20,13 @@ def parse(string):
 
     for i in range(0, len(arguments)-1):
         try:
-            arguments[i] = int(arguments[i])
-        finally:
+            arguments[i] = float(arguments[i])
+        except ValueError:
             arguments[i] = arguments[i]
 
     return arguments
 # ###########-Publishers-########### #
+print("Creating publishers...")
 align_controller_setup = rospy.Publisher("align_controller_setup", ControllerSetup, queue_size=10)
 align_current = rospy.Publisher("align_current", Float32, queue_size=10)
 align_error = rospy.Publisher("align_error", Float32, queue_size=10)
@@ -38,6 +39,7 @@ forwards_command = rospy.Publisher("forwards_command", ForwardsCommand, queue_si
 horizontal_motors = rospy.Publisher("horizontal_motors", HorizontalMotors, queue_size=10)
 vertical_motors = rospy.Publisher("vertical_motors", Int32, queue_size=10)
 
+print("Creating dictionary...")
 publisher_dictionary = {
     "acs": align_controller_setup,
     "ac": align_current,
@@ -52,6 +54,7 @@ publisher_dictionary = {
 }
 
 # ###########-SCRIPT-########### #
+print("Initializing ROS node...")
 rospy.init_node("CommandMenu", anonymous=True)
 print("Command Menu ready...")
 
@@ -62,9 +65,9 @@ while not rospy.is_shutdown():
         print(command)
     '''
     inp = input("Enter command: ")
-    args = parse(inp)
-    pub = publisher_dictionary[args[0]]
-    pub.Publish(*args[1:])
+    arguments = parse(inp)
+    pub = publisher_dictionary[arguments[0]]
+    pub.Publish(*arguments[1:])
 
 """
 VERSION CONTROL:
