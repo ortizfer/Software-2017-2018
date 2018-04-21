@@ -3,35 +3,39 @@
     the AUV through ROS topics.
 """
 
+import inspect
 import rospy
 from std_msgs.msg import Int32, Float32, Bool
 from rumarino_package.msg import Centroid, ControllerSetup, ForwardsCommand, HorizontalMotors
 
 
 # ###########-UTILS-########### #
-def parse(string):
-    arguments = []
-    i = 0
-    for char in string:
-        if char == ',':
-            i += 1
+def parse(array):
+    atr = []
+    for element in array:
+        if element == "t":
+            atr.append(True)
+        elif element == "f":
+            atr.append(False)
         else:
-            arguments[i] = arguments[i] + char
+            try:
+                atr.append(float(element))
+            except ValueError:
+                atr.append(element)
+    return atr
 
-    for i in range(0, len(arguments)-1):
-        try:
-            arguments[i] = float(arguments[i])
-        except ValueError:
-            arguments[i] = arguments[i]
-
-    return arguments
+def print_dic(dictionary):
+    atr = []
+    for key in dictionary:
+        atr.append(key)
+    return atr
 # ###########-Publishers-########### #
 print("Creating publishers...")
 align_controller_setup = rospy.Publisher("align_controller_setup", ControllerSetup, queue_size=10)
 align_current = rospy.Publisher("align_current", Float32, queue_size=10)
 align_error = rospy.Publisher("align_error", Float32, queue_size=10)
 align_set_point = rospy.Publisher("align_set_point", Float32, queue_size=10)
-depth_controller_setup = rospy.Publisher("depth_controller_setup", Bool, queue_size=10)
+depth_controller_setup = rospy.Publisher("depth_controller_setup", ControllerSetup, queue_size=10)
 depth_current = rospy.Publisher("depth_current", Float32, queue_size=10)
 depth_error = rospy.Publisher("depth_error", Float32, queue_size=10)
 depth_set_point = rospy.Publisher("depth_set_point", Float32, queue_size=10)
@@ -59,16 +63,19 @@ rospy.init_node("CommandMenu", anonymous=True)
 print("Command Menu ready...")
 
 while not rospy.is_shutdown():
-    ''''
-    print("Available Commands:")
-    for command in commands:
-        print(command)
-    '''
-    inp = input("Enter command: ")
-    arguments = parse(inp)
-    pub = publisher_dictionary[arguments[0]]
-    pub.Publish(*arguments[1:])
-
+    inp = raw_input("Enter command: ")
+    if inp != "help":
+        arguments = parse(inp.split(","))
+        try:
+            pub = publisher_dictionary[arguments[0]]
+            pub.publish(*arguments[1:])
+        except KeyError:
+            print("Invalid Command: " + arguments[0])
+    else:
+       dic = print_dic(publisher_dictionary)
+       for entry in dic:
+           print(entry)
+        
 """
 VERSION CONTROL:
 
