@@ -26,17 +26,17 @@ def parse(string):
 
     return arguments
 # ###########-Publishers-########### #
-align_controller_setup = rospy.Publisher("align_controller_setup", ControllerSetup)
-align_current = rospy.Publisher("align_current", Float32)
-align_error = rospy.Publisher("align_error", Float32)
-align_set_point = rospy.Publisher("align_set_point", Float32)
-depth_controller_setup = rospy.Publisher("depth_controller_setup", Bool)
-depth_current = rospy.Publisher("depth_current", Float32)
-depth_error = rospy.Publisher("depth_error", Float32)
-depth_set_point = rospy.Publisher("depth_set_point", Float32)
-forwards_command = rospy.Publisher("forwards_command", ForwardsCommand)
-horizontal_motors = rospy.Publisher("horizontal_motors", HorizontalMotors)
-vertical_motors = rospy.Publisher("vertical_motors", Int32)
+align_controller_setup = rospy.Publisher("align_controller_setup", ControllerSetup, queue_size=10)
+align_current = rospy.Publisher("align_current", Float32, queue_size=10)
+align_error = rospy.Publisher("align_error", Float32, queue_size=10)
+align_set_point = rospy.Publisher("align_set_point", Float32, queue_size=10)
+depth_controller_setup = rospy.Publisher("depth_controller_setup", Bool, queue_size=10)
+depth_current = rospy.Publisher("depth_current", Float32, queue_size=10)
+depth_error = rospy.Publisher("depth_error", Float32, queue_size=10)
+depth_set_point = rospy.Publisher("depth_set_point", Float32, queue_size=10)
+forwards_command = rospy.Publisher("forwards_command", ForwardsCommand, queue_size=10)
+horizontal_motors = rospy.Publisher("horizontal_motors", HorizontalMotors, queue_size=10)
+vertical_motors = rospy.Publisher("vertical_motors", Int32, queue_size=10)
 
 publisher_dictionary = {
     "acs": align_controller_setup,
