@@ -5,25 +5,26 @@
 
 import rospy
 from std_msgs.msg import Int32, Float32, Bool
-from rumarino_package import Centroid, ControllerSetup, ForwardsCommand, HorizontalMotors
+from rumarino_package.msg import Centroid, ControllerSetup, ForwardsCommand, HorizontalMotors
+
 
 # ###########-UTILS-########### #
 def parse(string):
-    args = []
+    arguments = []
     i = 0
     for char in string:
         if char == ',':
             i += 1
         else:
-            args[i] = args[i] + char
+            arguments[i] = arguments[i] + char
 
-    for i in range(0, len(args)-1):
+    for i in range(0, len(arguments)-1):
         try:
-            args[i] = int(args[i])
+            arguments[i] = int(arguments[i])
         finally:
-            args[i] = args[i]
+            arguments[i] = arguments[i]
 
-    return args
+    return arguments
 # ###########-Publishers-########### #
 align_controller_setup = rospy.Publisher("align_controller_setup", ControllerSetup)
 align_current = rospy.Publisher("align_current", Float32)
@@ -70,4 +71,5 @@ VERSION CONTROL:
 
 1. April 21, 2018; 3:11pm; Carlos J. Figueroa
     Initial commit of the CommandMenu.py
+
 """
