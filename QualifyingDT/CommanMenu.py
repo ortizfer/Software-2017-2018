@@ -54,7 +54,10 @@ publisher_dictionary = {
     "dsp": depth_set_point,
     "fc": forwards_command,
     "hm": horizontal_motors,
-    "vm": vertical_motors
+    "vm": vertical_motors,
+    "help": "PRINTS COMMANDS",
+    "exit": "CLOSE THE COMMAND MENU",
+    "x": "EMERGENCY OFF",
 }
 
 # ###########-SCRIPT-########### #
@@ -62,19 +65,28 @@ print("Initializing ROS node...")
 rospy.init_node("CommandMenu", anonymous=True)
 print("Command Menu ready...")
 
-while not rospy.is_shutdown():
+exit_requested = False
+while not rospy.is_shutdown() and not exit_requested:
     inp = raw_input("Enter command: ")
-    if inp != "help":
+    if inp == "x":
+        align_controller_setup.publish(False, False, -1, -1)
+        depth_controller_setup.publish(False, False, -1, -1)
+        vertical_motors(0)
+        horizontal_motors(0, 0)
+    elif inp == "help":
+       dic = print_dic(publisher_dictionary)
+       for entry in dic:
+           print(entry)
+    elif inp == "exit":
+        exit_requested = True
+    else:
         arguments = parse(inp.split(","))
         try:
             pub = publisher_dictionary[arguments[0]]
             pub.publish(*arguments[1:])
         except KeyError:
             print("Invalid Command: " + arguments[0])
-    else:
-       dic = print_dic(publisher_dictionary)
-       for entry in dic:
-           print(entry)
+
         
 """
 VERSION CONTROL:
