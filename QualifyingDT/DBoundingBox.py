@@ -10,6 +10,7 @@ from std_msgs import Int32, Float32
 from rumarino_package.msg import ForwardsCommand, Centroid
 
 rospy.init_node("DoubleBoundingBox", anonymous=True)
+centroid_topic = "Centroid_Test"
 
 angle = -5.0
 boundingBoxPerc = 0.20
@@ -26,7 +27,7 @@ target_heading = (current_heading+180)%360
 
 while not rospy.is_shutdown() and current_heading != target_heading:
     current_heading = rospy.wait_for_message("align_current", Float32, timeout=5)
-    centroid = rospy.wait_for_message("Centroid_Pole_Side", Centroid, timeout=5)
+    centroid = rospy.wait_for_message(centroid_topic, Centroid, timeout=5)
     if centroid is not None:
         x = centroid.x
         if x > rightBound:  # Stop forward movement and Rotate to the right
