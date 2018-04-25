@@ -24,7 +24,7 @@ forwardPub = rospy.Publisher("forwards_command", ForwardsCommand, timeout=5)
 while(not rospy.is_shutdown()):
 
     # Waits for centroid to be received
-    centroid = rospy.wait_for_message("centroid_topic", Centroid, timeout=5)
+    centroid = rospy.wait_for_message("Centroid_Test", Centroid, timeout=5)
 
     # Fixates the x coordinate of the coordinate being received
     x = centroid.x
@@ -35,7 +35,7 @@ while(not rospy.is_shutdown()):
             pixels = pixels * -1
 
         forwardPub.publish(20, True) # Moves and tries to align
-        alignPub.publish(5, True)    # within the boundary
+        alignPub.publish(-5, True)    # within the boundary
 
     elif centroid > leftBound: # Object is within the bounds
         pixels = 0

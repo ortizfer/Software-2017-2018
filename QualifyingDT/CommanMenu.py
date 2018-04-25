@@ -58,6 +58,7 @@ publisher_dictionary = {
     "help": "PRINTS COMMANDS",
     "exit": "CLOSE THE COMMAND MENU",
     "x": "EMERGENCY OFF",
+    "s": "FULL STOP"
 }
 
 # ###########-SCRIPT-########### #
@@ -71,12 +72,15 @@ while not rospy.is_shutdown() and not exit_requested:
     if inp == "x":
         align_controller_setup.publish(False, False, -1, -1)
         depth_controller_setup.publish(False, False, -1, -1)
-        vertical_motors(0)
-        horizontal_motors(0, 0)
+        vertical_motors.publish(0)
+        horizontal_motors.publish(0, 0)
+        forwards_command.publish(0, False)
+    elif inp == "s":
+        forwards_command.publish(0, False)
     elif inp == "help":
-       dic = print_dic(publisher_dictionary)
-       for entry in dic:
-           print(entry)
+        dic = print_dic(publisher_dictionary)
+        for entry in dic:
+            print(entry)
     elif inp == "exit":
         exit_requested = True
     else:
