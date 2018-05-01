@@ -19,7 +19,9 @@ motor_message = HorizontalMotors()
 def forwards_command_callback(data):
     global forwards_speed
     global moving_forwards
-    forwards_speed = (data.forwardsIntensity)*FORWARDS_CAP
+    forwards_speed = (data.forwardsIntensity)
+    if(forwards_speed > FORWARDS_CAP):
+        forwards_speed = FORWARDS_CAP
     moving_forwards = data.movingForwards
 
 

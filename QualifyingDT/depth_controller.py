@@ -10,18 +10,19 @@ depth_set_point = 0
 error = 0
 
 controller_gain= 6.25
-controller_bias = 29
+controller_bias = 0
 depth_current = 0
 FEET_TO_PWM = 6.25
 FEET_TO_METERS = 3.281
 MOTOR_CAP = 50
 polarity = 1
-
+MARRON = 10
 def controller_setup_callback(data):
     global controller_flag
     global controller_gain
     global controller_bias
     global depth_current
+    global polarity
 
     controller_flag = data.controllerRunning
     if(data.controllerGain > 0):
@@ -55,16 +56,17 @@ def run_controller(depth):
     global error
     global controller_gain
     global controller_bias
+    global MARRON
 
-    error = depth_set_point - depth.data    
-    motor_speed = (error - controller_bias)*controller_gain*polarity
+    error = depth_set_point - depth.data*MARRON    
+    motor_speed = (error - controller_bias)*controller_gain
 
     if(motor_speed > MOTOR_CAP):
         motor_speed = MOTOR_CAP
     if(motor_speed < -1*MOTOR_CAP):
         motor_speed = -1*MOTOR_CAP
     
-    motor_pub.publish(int(motor_speed))
+    motor_pub.publish(int(motor_speed*polarity))
 
 
 def initialize_node():
