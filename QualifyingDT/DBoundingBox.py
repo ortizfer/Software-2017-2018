@@ -29,11 +29,7 @@ target_heading = (current_heading+180)%360
 print("INITIALIZED")
 while not rospy.is_shutdown() and current_heading != target_heading:
     current_heading = rospy.wait_for_message("align_current", Float32, timeout=5)
-<<<<<<< HEAD
-    centroid = rospy.wait_for_message("Centroid_Test", Centroid, timeout=5)
-=======
     centroid = rospy.wait_for_message(centroid_topic, Centroid, timeout=5)
->>>>>>> bc252db15cc18bf6e1ee3d3e58cf3dccdc922ab5
     if centroid is not None:
         x = centroid.x
         if x > rightBound:  # Stop forward movement and Rotate to the right
