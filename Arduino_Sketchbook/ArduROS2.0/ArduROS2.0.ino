@@ -37,7 +37,7 @@ ros::Subscriber<std_msgs::Int32> subHorizontalMotors("horizontal_motors", setHor
 
 
 void setup() {
-  // Initializes the node and preparehoris for publishing and subscribing.
+  // Initializes the node and prepares for publishing and subscribing.
   nh.initNode();
   //nh.advertise(pubToPressureSensor);
   nh.subscribe(subVerticalMotors);
@@ -63,7 +63,7 @@ void loop()
 {
   /* pressureSensor.read();
 
-  depth.data = pressureSensor.depth()/(3.3);
+  depth.data = pressureSensor.depth()*(3.3);
 
   pubToPressureSensor.publish(&depth);
   */

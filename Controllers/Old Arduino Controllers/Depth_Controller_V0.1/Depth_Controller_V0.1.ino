@@ -68,7 +68,9 @@ void loop(){
   if(getDepthController()){
       pressureSensor.read(); 
    
-      depthActual = pressureSensor.depth()/3.3;
+      //depthActual = pressureSensor.depth()/3.3;
+
+      depthActual = pressureSensor.depth()*3.28;
 
       depthError = (getDepthSetPoint() - depthActual)*FEET_TO_METERS;      //calculate error
 
