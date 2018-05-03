@@ -14,6 +14,24 @@ from Utils import RosCom
 """Tells VISION with mission we are"""
 Roscom.setVisionMission(3)
 
+x_dice_up_right = visionlist[].boundingBox[]
+x_dice_up_left =
+x_dice_down_right =
+x_dice_down_left =
+y_dice_up_right =
+y_dice_up_left =
+y_dice_down_right =
+y_dice_down_left =
+
+x_dice_up_right =
+x_dice_up_left =
+x_dice_down_right =
+x_dice_down_left =
+y_dice_up_right =
+y_dice_up_left =
+y_dice_down_right =
+y_dice_down_left =
+
 camCenterX = 640/2
 camCenterY = 480/2
 
@@ -30,7 +48,7 @@ def run_Dice():
         if counter == 5:
             print("mission failed we'll get em next time")
             break
-    while check_bigdice(Dice1):#break while when dice is biggerthan boundingbox
+    while check_bigdice(Dice1):#break while when dice is bigger than boundingbox
         if check_binding_box(Dice1):
             forward_sleep(40, 2)
         else:
@@ -39,14 +57,14 @@ def run_Dice():
     forward_sleep(40, 3)
     backward_sleep(40, 6) #retrace steps
     update_dice(Dice2)
-    while check_bigdice(Dice2):#break while when dice is biggerthan boundingbox
+    while check_bigdice(Dice2):#break while when dice is bigger than boundingbox
         if check_binding_box(Dice2):
             forward_sleep(40, 2)
         else:
             align()
         update_dice(Dice2)
     forward_sleep(40, 3)
-    #sets finised state, end
+    #sets finished state, end
 
 
 
@@ -122,14 +140,17 @@ def check_pair():
 
 
 def check_bigdice(Dice):  # checks 4 out of bound dice (Note: input variables)
-    if x_dice_up_right > x_bounding_up_right and y_dice_up_right < y_bounding_up_right and x_dice_down_right < x_bounding_down_right and y_dice_down_right > y_bounding_down_right:
+    if x_dice_up_right > x_bounding_up_right and y_dice_up_right < y_bounding_up_right and x_dice_down_right < \
+            x_bounding_down_right and y_dice_down_right > y_bounding_down_right:
         return False
-    elif x_dice_up_left < x_bounding_up_left and y_dice_up_left < y_bounding_up_left and x_dice_down_left < x_bounding_down_left and y_dice_down_left > y_bounding_down_left:
+    elif x_dice_up_left < x_bounding_up_left and y_dice_up_left < y_bounding_up_left and x_dice_down_left < \
+            x_bounding_down_left and y_dice_down_left > y_bounding_down_left:
         return False
-    elif x_dice_up_right > x_bounding_up_right and y_dice_up_right < y_bounding_up_right and x_dice_up_left < x_bounding_up_left and y_dice_up_left > y_bounding_up_left:
+    elif x_dice_up_right > x_bounding_up_right and y_dice_up_right < y_bounding_up_right and x_dice_up_left < \
+            x_bounding_up_left and y_dice_up_left > y_bounding_up_left:
         return False
-    elif x_dice_down_right > x_bounding_down_right and y_dice_down_right > y_bounding_down_right and x_dice_down_left < x_bounding_down_left and y_dice_down_left > y_bounding_down_left:
-        return False
+    elif x_dice_down_right > x_bounding_down_right and y_dice_down_right > y_bounding_down_right and \
+            x_dice_down_left < x_bounding_down_left and y_dice_down_left > y_bounding_down_left:
     else:
         return True
 
