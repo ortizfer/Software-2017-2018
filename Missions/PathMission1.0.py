@@ -1,67 +1,118 @@
 from Utils import RosCom
+import numpy as np
+import rospy
+from Utils.Path import *
+
 
 """@authors Karinne and Christian"""
 """ 
-    Given an angle and the length of the lines *by Vision*, then 
-    if the difference between the length of the lines is greater than 1, then 
-    check which line is bigger or check the polarity of the difference,
-    if polarity positive, turn right(align plus the angle given), 
-    if polarity negative, turn left(align - angle given), 
-    else if  difference is less than 1 then keep moving forward. 
-    
-    left: sum the angles, adding the angle with the initial angle will make th sub turn left
-    right: subtract the angles, subtracting the angle from the initial angle will make the sub turn right
+    1st style: 
+        Using the intercepts of the path lines with the edges of the camera box. With this
+        intercepts we can check if the sub is aligned or not and if it is not aligned using 
+        the numpy libray we can align it
 """
-RosCom.setVisionMission(2)
-
-def found_path_bottom():
-    # search for path through bottom camera
-    return True
 
 
-def search_for_path():
-    # search for path through front and bottom cameras
-    while not found_path_bottom():
-        found_path_bottom();
-    return True;
+v_max = 60  # x coordinates of the max vertical bounding box
+v_min = 40  # x coordinates of the min vertical bounding box
+h_min = 45  # y coordinate for the min horizontal bounding box
+h_max = 55  # y coordinate for the max horizontal bounding box
+# x and y coordinate set for top and bottom intercepts
+top_x = 0
+top_y = 0
+bottom_x = 0
+bottom_y = 0
 
 
-def get_angle():
-    angle = 0
-    # Get the angle given by vision
-    return angle
-
-def mission_on(): # Notify when the path mission starts
-    return True
-
-search_for_path()
-
-# RosCom.setDepth(1, 13.00) specify and set depth
-align = 0  # set angle
-path_mission = True
+def mission_on():
+    return Path.getseePath()
 
 
-lines_length = []  # Get vision
-line_a = lines_length[0]  # leftmost
-line_b = lines_length[1]  # rightmost
-
-
-# while path mission is true
-def mission_run():
-    while mission_on():
-        if line_a - line_b >= 1.00:
-            if line_a > line_b:
-                align = align + get_angle()
-                # RosCom.headingMotors(1, 7, align) # 7 is for eliminating compiler errors, don't know what should go there
-                # Tell ros to align sub to the new angle
-                RosCom.moveForward(35)
-            elif line_b > line_b:
-                align = align - get_angle()
-                # RosCom.headingMotors(1, 7, align)
-                # Tell ros to align sub to the new angle
-                RosCom.moveForward(35)
+def check_align(bottom_x, bottom_y, top_x, top_y):
+    if bottom_x != top_x:
+        # calculate angle using tangent
+        coordinates = [bottom_x-top_x, bottom_y-top_y]
+        angle = calc_phi(coordinates)
+        if bottom_x > top_x:
+            return [-angle, bottom_x, top_x]
         else:
-            # If the difference between lines lengths is less than 1, then continue to move forward
-            RosCom.moveForward(25)
-    # Method that verifies if mission is still on(running), should return true or false
-    mission_run()
+            return [np.abs(angle), bottom_x, top_x]
+    return 0  # angle for sub to align, 0 if there is no need for alignment
+
+
+def run():
+    while mission_on():  # while the centroid in the path end is not inside the center boundary box
+        if bottom_x < v_min and top_x > v_max:
+            check_align(bottom_x, bottom_y, top_x, top_y)
+            # move forward
+        elif bottom_x > v_max and top_x < v_min:
+            check_align(bottom_x, bottom_y, top_x, top_y)
+            # move forward
+        elif bottom_x < v_min or top_x < v_min:
+            check_align(bottom_x, bottom_y, top_x, top_y)
+            # move forward
+        elif bottom_x > v_max or top_x > v_max:
+            check_align(bottom_x, bottom_y, top_x, top_y)
+            # move forward
+        elif bottom_x < v_min and top_x < v_min:
+            x = v_min + ((v_max - v_min) / 2)
+            check_align(bottom_x, bottom_y, x, top_y)
+            # move forward
+        elif bottom_x > v_max and top_x > v_max:
+            x = v_min + ((v_max - v_min) / 2)
+            check_align(x, bottom_y, top_x, top_y)
+            # move forward
+
+
+def calc_phi(v):
+    if v[0] > 0:
+        return np.arctan(v[1] / v[0])
+    else:
+        if v[1] > 0:
+            if v[0] < 0:
+                return np.pi + np.arctan(v[1] / v[0])
+            else:
+                return np.pi
+        elif v[1] < 0:
+            if v[0] < 0:
+                return -np.pi + np.arctan(v[1] / v[0])
+            else:
+                return -np.pi
+        else:
+            return 0.0
+
+
+#  OLD ALGORITHM USING LINES LENGTH
+# # RosCom.setDepth(1, 13.00) specify and set depth
+# align = 0  # set angle
+# path_mission = True
+#
+#
+# lines_length = []  # Get vision
+# line_a = lines_length[0]  # leftmost
+# line_b = lines_length[1]  # rightmost
+#
+# # There is a difference of 0.89 ft between the depth path and the depth of the sub, the
+# #  will be 0.89 ft above the path. This should the optimal depth fo the sub to gather
+# #  the data necessary for this mission
+#
+#
+# # while path mission is true
+# # def run():
+# #     while True:
+# #         # updateLines()
+# #         if line_a - line_b >= 1.00:
+# #             if line_a > line_b:
+# #                 align = align + get_angle()
+# #                 # RosCom.headingMotors(1, 7, align) # 7 is for eliminating
+# #                 # compiler errors, don't know what should go there
+# #                 # Tell ros to align sub to the new angle
+# #                 RosCom.moveForward(35)
+# #             elif line_b > line_b:
+# #                 align = align - get_angle()
+# #                 # RosCom.headingMotors(1, 7, align)
+# #                 # Tell ros to align sub to the new angle
+# #                 RosCom.moveForward(35)
+# #         else:
+# #             # If the difference between lines lengths is less than 1, then continue to move forward
+# #             RosCom.moveForward(25)
