@@ -25,7 +25,9 @@ bottom_y = 0
 
 
 def mission_on():
-    return Path.getseePath()
+    # it should return true while the camera does not detect any intercepts in the top edge or
+    # while the centroid in the path end is not inside the center boundary box
+    return
 
 
 def check_align(bottom_x, bottom_y, top_x, top_y):
@@ -41,7 +43,7 @@ def check_align(bottom_x, bottom_y, top_x, top_y):
 
 
 def run():
-    while mission_on():  # while the centroid in the path end is not inside the center boundary box
+    while mission_on():
         if bottom_x < v_min and top_x > v_max:
             check_align(bottom_x, bottom_y, top_x, top_y)
             # move forward
